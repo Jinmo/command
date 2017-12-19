@@ -1,0 +1,1199 @@
+#!/usr/bin/env python
+""" generated source for module <stdin> """
+from __future__ import print_function
+# package: com.ceewa.demoforceewauav.tool
+class WaypointTask(object):
+    def createFromParcel(self, source):
+        """ generated source for method createFromParcel """
+        task = WaypointTask()
+        task.property = source.readByte()
+        source.readByteArray([None] * 6)
+        source.readByteArray([None] * 6)
+        source.readByteArray([None] * 6)
+        source.readByteArray([None] * 6)
+        return task
+
+    def newArray(self, size):
+        """ generated source for method newArray """
+        return [None] * size
+
+    duration = [None] * 6
+    execTime = [None] * 6
+    interval = [None] * 6
+    property = int()
+    pwmOut = [None] * 6
+
+    def describeContents(self):
+        """ generated source for method describeContents """
+        return 0
+
+    def writeToParcel(self, dest, flags):
+        """ generated source for method writeToParcel """
+        dest.writeByte(self.property)
+        dest.writeByteArray(self.execTime)
+        dest.writeByteArray(self.pwmOut)
+        dest.writeByteArray(self.duration)
+        dest.writeByteArray(self.interval)
+
+    def clone(self):
+        """ generated source for method clone """
+        return super(WaypointTask, self).clone()
+
+class Tool(object):
+    """ generated source for class Tool """
+    ACCELERATEVALUEFORMODULE_ACTION = "android.action.acceleratevaluemodule"
+    ACCELERATEVALUEFORUAV_ACTION = "android.action.acceleratevalue"
+    ADDRESSOFBLE = "addressforble"
+    AHRS_STATE_BAD = int(0)
+    AHRS_STATE_GOOD = int(2)
+    AHRS_STATE_INIT = int(1)
+    AIR_ADDR = -128
+    ALLVERSIONVALUES = "allversionvalues"
+    ALTITUDE = [None] * 4
+    ALTITUDELIMITFORHANDLER = 0
+    ALTITUDELIMITFORSETTING = "altitudelimitforsetting"
+    ALTITUDEVALUE_DEFAULT = 120
+    ALTITUDEVALUE_FLOAT = 30.0
+    ALTITUDEVALUE_SHORT = int(20)
+    ANTIFLICKERMODEINDEX = 13
+    ARGBFORBLACK = "#A0000000"
+    ARGBFORBLACK_01 = "#DC000000"
+    ARGBFORBLACK_02 = "#C8000000"
+    ARGBFORBLACK_03 = "#B4000000"
+    ARGBFORBLACK_04 = "#5A000000"
+    ARGBFORBLUE_01 = "#FF00C8FF"
+    ARGBFORBLUE_02 = "#BA2DA7E0"
+    ARGBFORBLUE_03 = "#66172987"
+    ARGBFORBLUE_04 = "#C800C8FF"
+    ARGBFORFIRSTLEVELPRESSED = "#B4007B9E"
+    ARGBFORFLIGHT = "#C8006380"
+    ARGBFORILLUSTRATION = -771751936
+    ARGBFORLIGHTBLUE = "#D2BFEFFF"
+    ARGBFORLIGHTBLUE_01 = "#28BFEFFF"
+    ARGBFORTRACK = -16725761
+    ARGBFORYELLOW_01 = "#BAFAED00"
+    AUTOCIRCLEEXPOSURELAYOUTINDEX = 4
+    AUTOFOLLOW = 1
+    AUTOFOLLOWORDERONE_ACTION = "android.action.autofolloworderone"
+    AUTOFOLLOWORDERTWO_ACTION = "android.action.autofollowordertwo"
+    AUTOINDEXFORDOWNLOAD = 1
+    AUTO_CONTROL_GIMBAL = int(1)
+    AUTO_FOLLOW = int(11)
+    BACKALTITUDELIMITFORHANDLER = 2
+    BACKALTITUDELIMITFORSETTING = "backaltitudelimitforsetting"
+    BACKALTITUDEVALUE = "backaltitudevalue"
+    BACKALTITUDEVALUE_DEFAULT = 20
+    BACKALTITUDEVALUE_PREFERENCES = "backaltitudevalue_preferences"
+    BACK_ACTION = "android.action.back"
+    BAROMETERVALUE_ACTION = "android.action.barometervalue"
+    BATTERYDATAFORSETTING = 2
+    BATTERYINFO_ACTION = "android.action.batteryinfo"
+    BATTERYSTATE_LOSESIGNAL = 1
+    BATTERYSTATE_LOSS = 2
+    BATTERYSTATE_NORMAL = 0
+    BATTERY_SETTING = 2
+    BLEISCONNECTED_ACTION = "android.action.bleisconnected"
+    BLEISCONNECTING_ACTION = "android.action.bleisconnecting"
+    BLEISDISCONNECTED_ACTION = "android.action.bleisdisconnected"
+    BLUETOOTHCONNECTED_ACTION = "android.action.bluetoothconnected"
+    BLUETOOTHTOSERIALUUID = "00001101-0000-1000-8000-00805F9B34FB"
+    BLUETOOTH_CONNECTED = 2
+    BLUETOOTH_CONNECTING = 1
+    BLUETOOTH_UNCONNECTED = 0
+    BOOTH_MAX_OK_PACKAGE_LENGTH = 20
+    BOOTH_MIN_OK_PACKAGE_LENGTH = 7
+    BOUNDARYVALUEFORSEEKBAR = 95
+    BREAKUPLOADWAYPOINT_ACTION = "android.action.breakuploadwaypoint"
+    CALIBRATEBAROMETERBTNCLICKED = 4
+    CALIBRATEBAROMETER_ACTION = "android.action.calibratebarometer"
+    CALIBRATEFORSETTING = 4
+    CALIBRATEGIMBAL_ACTION = "android.action.calibrategimbal"
+    CALIBRATEMAGNETICFORMODULE_ACTION = "android.action.calibratemagneticformodule"
+    CALIBRATEMAGNETICFORUAV_ACTION = "android.action.calibratemagneticforuav"
+    CALIBRATEMAGNETICOFMODULEBTNCLICKED = 3
+    CALIBRATEMAGNETICOFUAVBTNCLICKED = 1
+    CALIBRATESENSORFORMODULE_ACTION = "android.action.calibratesensorformodule"
+    CALIBRATESENSORFORUAV_ACTION = "android.action.calibratesensorforuav"
+    CALIBRATESENSOROFMODULEBTNCLICKED = 2
+    CALIBRATESENSOROFUAVBTNCLICKED = 0
+    CALIBRATESTICKDATA_ACTION = "android.action.calibratestickdata"
+    CHANGEDIRECTIONOFDRONEANDGIMBAL = "android.action.changedirectionofdroneandgimbal"
+    CHANGESUBFRAMEFORCHECKLIST_ACTION = "android.action.changesubframeforchecklist"
+    CHANGESUBFRAMEFORGETVERSIONS_ACTION = "android.action.changesubframeforgetversions"
+    CHANNEL_INDEX_UNDEFINE = int(0)
+    CIRCLEFOLLOW = 2
+    CIRCLEFOLLOWORDERONE_ACTION = "android.action.circlefolloworderone"
+    CIRCLEFOLLOWORDERTWO_ACTION = "android.action.circlefollowordertwo"
+    CIRCLEINDEXFORDOWNLOAD = 2
+    CIRCLE_FOLLOW = int(12)
+    CIRCLE_ONE_POINT = int(7)
+    CLEARCOMMANDBEFORECALIBRATEBAROMETER_ACTION = "android.action.clearcommandbeforecalibratebarometer"
+    CLEARCOMMANDBEFORECALIBRATEMAGNETICOFMODULE_ACTION = "android.action.clearcommandbeforecalibratemagneticofmodule"
+    CLEARCOMMANDBEFORECALIBRATEMAGNETICOFUAV_ACTION = "android.action.clearcommandbeforecalibratemagneticofuav"
+    CLEARCOMMANDBEFORECALIBRATESENSOROFMODULE_ACTION = "android.action.clearcommandbeforecalibratesensorofmodule"
+    CLEARCOMMANDBEFORECALIBRATESENSOROFUAV_ACTION = "android.action.clearcommandbeforecalibratesensorofuav"
+    CLEARCOMMANDBEFORECALIBRATESTICKNEUTRAL_ACTION = "android.action.clearcommandbeforecalibratestickneutral"
+    CLEARCOMMANDFORCALIBRATEGIMBAL_ACTION = "android.action.clearcommandforcalibrategimbal"
+    CLEARCOMMANDFORCANCELCALIBRATESTICK_ACTION = "android.action.clearcommandforcalibratestick"
+    CLIMBRATE = [None] * 2
+    CLIMBRATEVALUE = int(60)
+    CMD_AUTOCONTROL_CRUISE_HEADING = int(44)
+    CMD_AUTOCONTROL_GIMBAL = int(55)
+    CMD_AUTOCONTROL_HEADING = int(37)
+    CMD_AUTO_FOLLOW = int(89)
+    CMD_BIND_DSM = int(11)
+    CMD_BUSY_TO_AIRPLANE = 127
+    CMD_CALIB_ACC_0 = int(87)
+    CMD_CALIB_ACC_1 = int(-119)
+    CMD_CALIB_ACC_2 = int(70)
+    CMD_CALIB_ACC_3 = int(20)
+    CMD_CALIB_ACC_4 = int(50)
+    CMD_CALIB_ACC_FOR_USER = int(12)
+    CMD_CALIB_ACC_ZERO = int(126)
+    CMD_CALIB_BAROMETER_OF_FOLLOWMODUAL = int(25)
+    CMD_CALIB_GIMBAL = int(26)
+    CMD_CALIB_GYRO_ACC_OF_DRONE = int(14)
+    CMD_CALIB_GYRO_ACC_OF_FOLLOWMODUAL = int(15)
+    CMD_CALIB_GYRO_FOR_USER = int(13)
+    CMD_CALIB_MAG_FOR_USER = int(1)
+    CMD_CALIB_MAG_OF_FOLLOWMODUAL = int(24)
+    CMD_CALIB_RC_NEU = int(8)
+    CMD_CALIB_VOLT = int(6)
+    CMD_CIRCLE_FOLLOW = int(90)
+    CMD_CIRCLE_ONE_POINT = int(71)
+    CMD_CRUISE_HEADING_FACE_TO_GCS = int(45)
+    CMD_CRUISE_ONE_POINT = int(70)
+    CMD_CUT_MOTOR = int(3)
+    CMD_CUT_PID = int(4)
+    CMD_FOLLOW_COORDINATE_NE = int(48)
+    CMD_FOLLOW_COORDINATE_VELOCITY = int(50)
+    CMD_FOLLOW_GO_HOME = int(85)
+    CMD_FOLLOW_GO_WAYPOINT_CONTINUE = int(84)
+    CMD_FOLLOW_GO_WAYPOINT_FROM_ZERO = int(83)
+    CMD_FOLLOW_HEADING_FACE_TO_GCS = int(45)
+    CMD_FOLLOW_LANDING = int(82)
+    CMD_FOLLOW_MANUAL = int(80)
+    CMD_FOLLOW_TAKE_OFF = int(81)
+    CMD_FOLLOW_WAYPOINT_PAUSE = int(86)
+    CMD_GIMBAL_LOOK_DOWN = int(56)
+    CMD_GO_HOME = int(68)
+    CMD_GO_WAYPOINT_CONTINUE = int(67)
+    CMD_GO_WAYPOINT_FROM_ZERO = int(66)
+    CMD_GPS_HOLD_HEADING_FACE_TO_GCS = int(51)
+    CMD_GPS_HOLD_HEADING_NORMAL = int(52)
+    CMD_GPS_MODE = int(35)
+    CMD_HANDCONTROL_CRUISE_HEADING = int(43)
+    CMD_HANDCONTROL_GIMBAL = int(54)
+    CMD_HANDCONTROL_HEADING = int(36)
+    CMD_HOLD_POINT_FOLLOW = int(72)
+    CMD_HOLD_POINT_LOOK_DOWN = int(73)
+    CMD_HOME_SOURCE_GCS_MODUAL = int(59)
+    CMD_HOME_SOURCE_HANDSET = int(58)
+    CMD_HOME_SOURCE_TAKEOFF = int(57)
+    CMD_IOC_HOME_RECORD = int(41)
+    CMD_LANDING = int(65)
+    CMD_MOTOR_RUN = int(32)
+    CMD_MOTOR_STOP = int(33)
+    CMD_MOTOR_TEST_1 = int(16)
+    CMD_MOTOR_TEST_2 = int(17)
+    CMD_MOTOR_TEST_3 = int(18)
+    CMD_MOTOR_TEST_4 = int(19)
+    CMD_MOTOR_TEST_5 = int(20)
+    CMD_MOTOR_TEST_6 = int(21)
+    CMD_MOTOR_TEST_7 = int(22)
+    CMD_MOTOR_TEST_8 = int(23)
+    CMD_RELATIVE_POSITION_FOLLOW = int(88)
+    CMD_RUN_PID = int(5)
+    CMD_SAVE_FLASH = int(2)
+    CMD_SELFIE_FOLLOW = int(87)
+    CMD_SET_NONE = int(0)
+    CMD_SIMPLE_FOLLOW = int(92)
+    CMD_START_CALIB_RC_SCALE = int(9)
+    CMD_STOP_CALIB_RC_SCALE = int(10)
+    CMD_SWITCH_FOLLOW_HEADING = int(38)
+    CMD_SWITCH_FOLLOW_RELATIVE_POSITION = int(39)
+    CMD_TAKE_OFF = int(64)
+    CMD_TEST_BEC = int(7)
+    CMD_TRACK_FOLLOW = int(91)
+    CMD_USE_GCS_CONTROL = int(35)
+    CMD_USE_RC_CONTROL = int(34)
+    CMD_WAYPOINT_PAUSE = int(69)
+    CMD_WAYPOINT_TYPE_AUTO_FOLLOW = int(99)
+    CMD_WAYPOINT_TYPE_CIRCLE_FOLLOW = int(100)
+    CMD_WAYPOINT_TYPE_CIRCLE_ONE_POINT = int(76)
+    CMD_WAYPOINT_TYPE_MULTI_INGROUND = int(74)
+    CMD_WAYPOINT_TYPE_RELATIVE_POSITION_FOLLOW = int(98)
+    CMD_WAYPOINT_TYPE_SELFIE_FOLLOW = int(97)
+    CMD_WAYPOINT_TYPE_SINGLE_POINT = int(75)
+    CMD_WAYPOINT_TYPE_TRACK_FOLLOW = int(101)
+    COMMANDCLEAREDBEFORECALIBRATEBAROMETER_ACTION = "android.action.commandclearedbeforecalibratebarometer"
+    COMMANDCLEAREDBEFORECALIBRATEGIMBAL_ACTION = "android.action.commandclearedbeforecalibrategimbal"
+    COMMANDCLEAREDBEFORECALIBRATEMAGNETICOFMODULE_ACTION = "android.action.commandclearedbeforecalibratemagneticofmodule"
+    COMMANDCLEAREDBEFORECALIBRATEMAGNETICOFUAV_ACTION = "android.action.commandclearedbeforecalibratemagneticofuav"
+    COMMANDCLEAREDBEFORECALIBRATESENSOROFMODULE_ACTION = "android.action.commandclearedbeforecalibratesensorofmodule"
+    COMMANDCLEAREDBEFORECALIBRATESENSOROFUAV_ACTION = "android.action.commandclearedbeforecalibratesensorofuav"
+    COMMANDCLEAREDBEFORECALIBRATESTICKNEUTRAL_ACTION = "android.action.commandclearedbeforecalibratestickneutral"
+    CONFIRMCALIBRATESTICK_ACTION = "android.action.confirmcalibratestick"
+    CONTROL_MODE_AEROBATICS = int(1)
+    CONTROL_MODE_AUTO_LEVEL = int(0)
+    COORDINATE_BODY = int(1)
+    COORDINATE_NE = int(0)
+    COORDINATE__VELOCITY = int(2)
+    COUNTPACKETSFORRECTHREAD = "android.action.countpacketsforrecthread"
+    COUNTPACKETSFORSENDTHREAD = "android.action.countpacketsforsendthread"
+    COURSE_LOCK = int(1)
+    CRUISE_GO_HOME = int(3)
+    CRUISE_HEADING_AUTOCONTROL = int(0)
+    CRUISE_HEADING_FACE_TO_GCS = int(2)
+    CRUISE_HEADING_HANDCONTROL = int(1)
+    CRUISE_LANDING = int(2)
+    CRUISE_NULL = int(0)
+    CRUISE_PAUSE_MODE = int(4)
+    CRUISE_SINGLE_POINT = int(6)
+    CRUISE_TAKE_OFF = int(1)
+    CURRENTINDEX = int(0)
+    DATAFORSHOW_ACTION = "android.action.dataforshow"
+    DEFINEDISTANCE = int(1)
+    DEFINELAUNCHHEIGHT = 10
+    DEFINEVELOCITY = int(100)
+    DEFINEWAYPOINTALT = 20
+    DEFINEWAYPOINTMAXALT = 300
+    DEG2RAD = 0.017453292
+    DENSITYVALUE = "densityvalue"
+    DIRECTIONAGILITYVALUE_DEFAULT = 10
+    DIRECTORYFORMENUDIALOG = "directoryformenudialog"
+    DISCONNECTBLUETOOTH_ACTION = "android.action.disconnectbluetooth"
+    DISTANCE = [None] * 2
+    DISTANCELIMITFORHANDLER = 1
+    DISTANCELIMITFORSETTING = "distancelimitforsetting"
+    DISTANCEVALUE_DEFAULT = 300
+    DLU_CMDRET_AUTOCONTROL_CRUISE_HEADING_ERROR = int(-84)
+    DLU_CMDRET_AUTOCONTROL_CRUISE_HEADING_OK = int(44)
+    DLU_CMDRET_AUTOCONTROL_GIMBAL_ERROR = int(-73)
+    DLU_CMDRET_AUTOCONTROL_GIMBAL_OK = int(55)
+    DLU_CMDRET_AUTOCONTROL_HEADING_ERROR = int(-91)
+    DLU_CMDRET_AUTOCONTROL_HEADING_OK = int(37)
+    DLU_CMDRET_AUTO_FOLLOW_ERROR = int(-39)
+    DLU_CMDRET_AUTO_FOLLOW_OK = int(89)
+    DLU_CMDRET_BIND_DSM_ERROR = int(-117)
+    DLU_CMDRET_BIND_DSM_OK = int(11)
+    DLU_CMDRET_CALIB_ACC_FOR_USER_ERROR = int(-116)
+    DLU_CMDRET_CALIB_ACC_FOR_USER_OK = int(12)
+    DLU_CMDRET_CALIB_ACC_ZERO_OK = int(126)
+    DLU_CMDRET_CALIB_ACC_ZERo_ERROR = int(-2)
+    DLU_CMDRET_CALIB_BAROMETER_OF_FOLLOWMODUAL_ERROR = int(-103)
+    DLU_CMDRET_CALIB_BAROMETER_OF_FOLLOWMODUAL_OK = int(25)
+    DLU_CMDRET_CALIB_GIMBAL_ERROR = int(-102)
+    DLU_CMDRET_CALIB_GIMBAL_OK = int(26)
+    DLU_CMDRET_CALIB_GYRO_ACC_OF_DRONE_ERROR = int(-114)
+    DLU_CMDRET_CALIB_GYRO_ACC_OF_DRONE_OK = int(14)
+    DLU_CMDRET_CALIB_GYRO_ACC_OF_FOLLOWMODUAL_ERROR = int(-113)
+    DLU_CMDRET_CALIB_GYRO_ACC_OF_FOLLOWMODUAL_OK = int(15)
+    DLU_CMDRET_CALIB_GYRO_FOR_USER_ERROR = int(-115)
+    DLU_CMDRET_CALIB_GYRO_FOR_USER_OK = int(13)
+    DLU_CMDRET_CALIB_MAG_FOR_USER_ERROR = int(-127)
+    DLU_CMDRET_CALIB_MAG_FOR_USER_OK = int(1)
+    DLU_CMDRET_CALIB_MAG_OF_FOLLOWMODUAL_ERROR = int(-104)
+    DLU_CMDRET_CALIB_MAG_OF_FOLLOWMODUAL_OK = int(24)
+    DLU_CMDRET_CALIB_RC_NEU_ERROR = int(-120)
+    DLU_CMDRET_CALIB_RC_NEU_OK = int(8)
+    DLU_CMDRET_CALIB_VOLT_ERROR = int(-122)
+    DLU_CMDRET_CALIB_VOLT_OK = int(6)
+    DLU_CMDRET_CIRCLE_FOLLOW_ERROR = int(-38)
+    DLU_CMDRET_CIRCLE_FOLLOW_OK = int(90)
+    DLU_CMDRET_CIRCLE_ONE_POINT_ERROR = int(-57)
+    DLU_CMDRET_CIRCLE_ONE_POINT_OK = int(71)
+    DLU_CMDRET_CRUISE_HEADING_FACE_TO_GCS_ERROR = int(-83)
+    DLU_CMDRET_CRUISE_HEADING_FACE_TO_GCS_OK = int(45)
+    DLU_CMDRET_CRUISE_ONE_POINT_ERROR = int(-58)
+    DLU_CMDRET_CRUISE_ONE_POINT_OK = int(70)
+    DLU_CMDRET_CUT_MOTOR_ERROR = int(-125)
+    DLU_CMDRET_CUT_MOTOR_OK = int(3)
+    DLU_CMDRET_CUT_PID_ERROR = int(-124)
+    DLU_CMDRET_CUT_PID_OK = int(4)
+    DLU_CMDRET_FOLLOW_GO_HOME_ERROR = int(-43)
+    DLU_CMDRET_FOLLOW_GO_HOME_OK = int(85)
+    DLU_CMDRET_FOLLOW_GO_WAYPOINT_CONTINUE_ERROR = int(-44)
+    DLU_CMDRET_FOLLOW_GO_WAYPOINT_CONTINUE_OK = int(84)
+    DLU_CMDRET_FOLLOW_GO_WAYPOINT_FROM_ZERO_ERROR = int(-45)
+    DLU_CMDRET_FOLLOW_GO_WAYPOINT_FROM_ZERO_OK = int(83)
+    DLU_CMDRET_FOLLOW_LANDING_ERROR = int(-46)
+    DLU_CMDRET_FOLLOW_LANDING_OK = int(82)
+    DLU_CMDRET_FOLLOW_MANUAL_ERROR = int(-48)
+    DLU_CMDRET_FOLLOW_MANUAL_OK = int(80)
+    DLU_CMDRET_FOLLOW_TAKE_OFF_ERROR = int(-47)
+    DLU_CMDRET_FOLLOW_TAKE_OFF_OK = int(81)
+    DLU_CMDRET_FOLLOW_WAYPOINT_PAUSE_ERROR = int(-42)
+    DLU_CMDRET_FOLLOW_WAYPOINT_PAUSE_OK = int(86)
+    DLU_CMDRET_GIMBAL_LOOK_DOWN_ERROR = int(-72)
+    DLU_CMDRET_GIMBAL_LOOK_DOWN_OK = int(56)
+    DLU_CMDRET_GO_HOME_ERROR = int(-60)
+    DLU_CMDRET_GO_HOME_OK = int(68)
+    DLU_CMDRET_GO_WAYPOINT_CONTINUE_ERROR = int(-61)
+    DLU_CMDRET_GO_WAYPOINT_CONTINUE_OK = int(67)
+    DLU_CMDRET_GO_WAYPOINT_FROM_ZERO_ERROR = int(-62)
+    DLU_CMDRET_GO_WAYPOINT_FROM_ZERO_OK = int(66)
+    DLU_CMDRET_GPS_MODE_ERROR = int(-93)
+    DLU_CMDRET_GPS_MODE_OK = int(35)
+    DLU_CMDRET_HANDCONTROL_CRUISE_HEADING_ERROR = int(-85)
+    DLU_CMDRET_HANDCONTROL_CRUISE_HEADING_OK = int(43)
+    DLU_CMDRET_HANDCONTROL_GIMBAL_ERROR = int(-74)
+    DLU_CMDRET_HANDCONTROL_GIMBAL_OK = int(54)
+    DLU_CMDRET_HANDCONTROL_HEADING_ERROR = int(-92)
+    DLU_CMDRET_HANDCONTROL_HEADING_OK = int(36)
+    DLU_CMDRET_HOLD_POINT_FOLLOW_ERROR = int(-56)
+    DLU_CMDRET_HOLD_POINT_FOLLOW_OK = int(72)
+    DLU_CMDRET_HOLD_POINT_LOOK_DOWN_ERROR = int(-55)
+    DLU_CMDRET_HOLD_POINT_LOOK_DOWN_OK = int(73)
+    DLU_CMDRET_HOME_SOURCE_GCS_MODUAL_ERROR = int(-69)
+    DLU_CMDRET_HOME_SOURCE_GCS_MODUAL_OK = int(59)
+    DLU_CMDRET_HOME_SOURCE_HANDSET_ERROR = int(-70)
+    DLU_CMDRET_HOME_SOURCE_HANDSET_OK = int(58)
+    DLU_CMDRET_HOME_SOURCE_TAKEOFF_ERROR = int(-71)
+    DLU_CMDRET_HOME_SOURCE_TAKEOFF_OK = int(57)
+    DLU_CMDRET_IOC_HOME_RECORD_ERROR = int(-87)
+    DLU_CMDRET_IOC_HOME_RECORD_OK = int(41)
+    DLU_CMDRET_LANDING_ERROR = int(-63)
+    DLU_CMDRET_LANDING_OK = int(65)
+    DLU_CMDRET_MOTOR_RUN_ERROR = int(-96)
+    DLU_CMDRET_MOTOR_RUN_OK = int(32)
+    DLU_CMDRET_MOTOR_STOP_ERROR = int(-95)
+    DLU_CMDRET_MOTOR_STOP_OK = int(33)
+    DLU_CMDRET_MOTOR_TEST_1_ERROR = int(-112)
+    DLU_CMDRET_MOTOR_TEST_1_OK = int(16)
+    DLU_CMDRET_MOTOR_TEST_2_ERROR = int(-111)
+    DLU_CMDRET_MOTOR_TEST_2_OK = int(17)
+    DLU_CMDRET_MOTOR_TEST_3_ERROR = int(-110)
+    DLU_CMDRET_MOTOR_TEST_3_OK = int(18)
+    DLU_CMDRET_MOTOR_TEST_4_ERROR = int(-109)
+    DLU_CMDRET_MOTOR_TEST_4_OK = int(19)
+    DLU_CMDRET_MOTOR_TEST_5_ERROR = int(-108)
+    DLU_CMDRET_MOTOR_TEST_5_OK = int(20)
+    DLU_CMDRET_MOTOR_TEST_6_ERROR = int(-107)
+    DLU_CMDRET_MOTOR_TEST_6_OK = int(21)
+    DLU_CMDRET_MOTOR_TEST_7_ERROR = int(-106)
+    DLU_CMDRET_MOTOR_TEST_7_OK = int(22)
+    DLU_CMDRET_MOTOR_TEST_8_ERROR = int(-105)
+    DLU_CMDRET_MOTOR_TEST_8_OK = int(23)
+    DLU_CMDRET_RELATIVE_POSITION_FOLLOW_ERROR = int(-40)
+    DLU_CMDRET_RELATIVE_POSITION_FOLLOW_OK = int(88)
+    DLU_CMDRET_RUN_PID_ERROR = int(-123)
+    DLU_CMDRET_RUN_PID_OK = int(5)
+    DLU_CMDRET_SAVE_FLASH_ERROR = int(-126)
+    DLU_CMDRET_SAVE_FLASH_OK = int(2)
+    DLU_CMDRET_SELFIE_FOLLOW_ERROR = int(-41)
+    DLU_CMDRET_SELFIE_FOLLOW_OK = int(87)
+    DLU_CMDRET_SET_FAIL_ERROR = int(-127)
+    DLU_CMDRET_SIMPLE_FOLLOW_ERROR = int(-36)
+    DLU_CMDRET_SIMPLE_FOLLOW_OK = int(92)
+    DLU_CMDRET_START_CALIB_RC_SCALE_ERROR = int(-119)
+    DLU_CMDRET_START_CALIB_RC_SCALE_OK = int(9)
+    DLU_CMDRET_STOP_CALIB_RC_SCALE_ERROR = int(-118)
+    DLU_CMDRET_STOP_CALIB_RC_SCALE_OK = int(10)
+    DLU_CMDRET_SWITCH_FOLLOW_HEADING_ERROR = int(-90)
+    DLU_CMDRET_SWITCH_FOLLOW_HEADING_OK = int(38)
+    DLU_CMDRET_SWITCH_FOLLOW_RELATIVE_POSITION_ERROR = int(-89)
+    DLU_CMDRET_SWITCH_FOLLOW_RELATIVE_POSITION_OK = int(39)
+    DLU_CMDRET_TAKE_OFF_ERROR = int(-64)
+    DLU_CMDRET_TAKE_OFF_OK = int(64)
+    DLU_CMDRET_TEST_BEC_ERROR = int(-121)
+    DLU_CMDRET_TEST_BEC_OK = int(7)
+    DLU_CMDRET_TRACK_FOLLOW_ERROR = int(-37)
+    DLU_CMDRET_TRACK_FOLLOW_OK = int(91)
+    DLU_CMDRET_USE_GCS_CONTROL_ERROR = int(-93)
+    DLU_CMDRET_USE_GCS_CONTROL_OK = int(35)
+    DLU_CMDRET_USE_RC_CONTROL_ERROR = int(-94)
+    DLU_CMDRET_USE_RC_CONTROL_OK = int(34)
+    DLU_CMDRET_WAYPOINT_PAUSE_ERROR = int(-59)
+    DLU_CMDRET_WAYPOINT_PAUSE_OK = int(69)
+    DLU_CMDRET_WAYPOINT_TYPE_AUTO_FOLLOW_ERROR = int(-29)
+    DLU_CMDRET_WAYPOINT_TYPE_AUTO_FOLLOW_OK = int(99)
+    DLU_CMDRET_WAYPOINT_TYPE_CIRCLE_FOLLOW_ERROR = int(-28)
+    DLU_CMDRET_WAYPOINT_TYPE_CIRCLE_FOLLOW_OK = int(100)
+    DLU_CMDRET_WAYPOINT_TYPE_CIRCLE_ONE_POINT_ERROR = int(-52)
+    DLU_CMDRET_WAYPOINT_TYPE_CIRCLE_ONE_POINT_OK = int(76)
+    DLU_CMDRET_WAYPOINT_TYPE_MULTI_INGROUND_ERROR = int(-54)
+    DLU_CMDRET_WAYPOINT_TYPE_MULTI_INGROUND_OK = int(74)
+    DLU_CMDRET_WAYPOINT_TYPE_RELATIVE_POSITION_FOLLOW_ERROR = int(-30)
+    DLU_CMDRET_WAYPOINT_TYPE_RELATIVE_POSITION_FOLLOW_OK = int(98)
+    DLU_CMDRET_WAYPOINT_TYPE_SELFIE_FOLLOW_ERROR = int(-31)
+    DLU_CMDRET_WAYPOINT_TYPE_SELFIE_FOLLOW_OK = int(97)
+    DLU_CMDRET_WAYPOINT_TYPE_SINGLE_POINT_ERROR = int(-53)
+    DLU_CMDRET_WAYPOINT_TYPE_SINGLE_POINT_OK = int(75)
+    DLU_CMDRET_WAYPOINT_TYPE_TRACK_FOLLOW_ERROR = int(-27)
+    DLU_CMDRET_WAYPOINT_TYPE_TRACK_FOLLOW_OK = int(101)
+    DLU_DOWN_SFID_HOME = int(-27)
+    DLU_DOWN_SFID_PARAM_1 = int(-127)
+    DLU_DOWN_SFID_PARAM_10 = int(-118)
+    DLU_DOWN_SFID_PARAM_11 = int(-117)
+    DLU_DOWN_SFID_PARAM_12 = int(-116)
+    DLU_DOWN_SFID_PARAM_13 = int(-115)
+    DLU_DOWN_SFID_PARAM_14 = int(-114)
+    DLU_DOWN_SFID_PARAM_17 = int(-111)
+    DLU_DOWN_SFID_PARAM_2 = int(-126)
+    DLU_DOWN_SFID_PARAM_21 = int(-107)
+    DLU_DOWN_SFID_PARAM_24 = int(-104)
+    DLU_DOWN_SFID_PARAM_3 = int(-125)
+    DLU_DOWN_SFID_PARAM_4 = int(-124)
+    DLU_DOWN_SFID_PARAM_5 = int(-123)
+    DLU_DOWN_SFID_PARAM_6 = int(-122)
+    DLU_DOWN_SFID_PARAM_7 = int(-121)
+    DLU_DOWN_SFID_PARAM_8 = int(-120)
+    DLU_DOWN_SFID_PARAM_9 = int(-119)
+    DLU_DOWN_SFID_TELEMETRY_1 = int(-64)
+    DLU_DOWN_SFID_TELEMETRY_10 = int(-55)
+    DLU_DOWN_SFID_TELEMETRY_11 = int(-54)
+    DLU_DOWN_SFID_TELEMETRY_12 = int(-53)
+    DLU_DOWN_SFID_TELEMETRY_13 = int(-52)
+    DLU_DOWN_SFID_TELEMETRY_14 = int(-51)
+    DLU_DOWN_SFID_TELEMETRY_15 = int(-50)
+    DLU_DOWN_SFID_TELEMETRY_16 = int(-49)
+    DLU_DOWN_SFID_TELEMETRY_2 = int(-63)
+    DLU_DOWN_SFID_TELEMETRY_3 = int(-62)
+    DLU_DOWN_SFID_TELEMETRY_4 = int(-61)
+    DLU_DOWN_SFID_TELEMETRY_5 = int(-60)
+    DLU_DOWN_SFID_TELEMETRY_6 = int(-59)
+    DLU_DOWN_SFID_TELEMETRY_7 = int(-58)
+    DLU_DOWN_SFID_TELEMETRY_8 = int(-57)
+    DLU_DOWN_SFID_TELEMETRY_9 = int(-56)
+    DLU_DOWN_SFID_TRACK_FOLLOW_WAYPOINT_1 = int(-38)
+    DLU_DOWN_SFID_TRACK_FOLLOW_WAYPOINT_2 = int(-37)
+    DLU_DOWN_SFID_WAYPOINT_1 = int(-48)
+    DLU_DOWN_SFID_WAYPOINT_10 = int(-39)
+    DLU_DOWN_SFID_WAYPOINT_2 = int(-47)
+    DLU_DOWN_SFID_WAYPOINT_3 = int(-46)
+    DLU_DOWN_SFID_WAYPOINT_4 = int(-45)
+    DLU_DOWN_SFID_WAYPOINT_5 = int(-44)
+    DLU_DOWN_SFID_WAYPOINT_6 = int(-43)
+    DLU_DOWN_SFID_WAYPOINT_7 = int(-42)
+    DLU_DOWN_SFID_WAYPOINT_8 = int(-41)
+    DLU_DOWN_SFID_WAYPOINT_9 = int(-40)
+    DLU_GBSTATE_NEVERRUN = int(3)
+    DLU_GBSTATE_PAUSE = int(1)
+    DLU_GBSTATE_STOP = int(0)
+    DLU_GNSTATE_RUN = int(2)
+    DLU_IT_BQJH_BYJS = int(10)
+    DLU_IT_BQJH_BYJX = int(12)
+    DLU_IT_BQJH_BYJY = int(9)
+    DLU_IT_BQJH_BYJZ = int(11)
+    DLU_IT_BQJQ_BYJS = int(4)
+    DLU_IT_BQJQ_BYJX = int(2)
+    DLU_IT_BQJQ_BYJY = int(1)
+    DLU_IT_BQJQ_BYJZ = int(3)
+    DLU_IT_BQJS_BYJH = int(8)
+    DLU_IT_BQJS_BYJQ = int(6)
+    DLU_IT_BQJS_BYJY = int(5)
+    DLU_IT_BQJS_BYJZ = int(7)
+    DLU_IT_BQJX_BYJH = int(14)
+    DLU_IT_BQJX_BYJQ = int(16)
+    DLU_IT_BQJX_BYJY = int(13)
+    DLU_IT_BQJX_BYJZ = int(15)
+    DLU_IT_BQJY_BYJH = int(17)
+    DLU_IT_BQJY_BYJQ = int(19)
+    DLU_IT_BQJY_BYJS = int(20)
+    DLU_IT_BQJY_BYJX = int(18)
+    DLU_IT_BQJZ_BYJH = int(23)
+    DLU_IT_BQJZ_BYJQ = int(21)
+    DLU_IT_BQJZ_BYJS = int(24)
+    DLU_IT_BQJZ_BYJX = int(22)
+    DLU_UP_SFID_CLALIB_ACC = int(-16)
+    DLU_UP_SFID_HOME = int(101)
+    DLU_UP_SFID_PARAM_1 = int(1)
+    DLU_UP_SFID_PARAM_10 = int(10)
+    DLU_UP_SFID_PARAM_11 = int(11)
+    DLU_UP_SFID_PARAM_12 = int(12)
+    DLU_UP_SFID_PARAM_13 = int(13)
+    DLU_UP_SFID_PARAM_14 = int(14)
+    DLU_UP_SFID_PARAM_17 = int(17)
+    DLU_UP_SFID_PARAM_2 = int(2)
+    DLU_UP_SFID_PARAM_21 = int(21)
+    DLU_UP_SFID_PARAM_24 = int(24)
+    DLU_UP_SFID_PARAM_3 = int(3)
+    DLU_UP_SFID_PARAM_4 = int(4)
+    DLU_UP_SFID_PARAM_5 = int(5)
+    DLU_UP_SFID_PARAM_6 = int(6)
+    DLU_UP_SFID_PARAM_7 = int(7)
+    DLU_UP_SFID_PARAM_8 = int(8)
+    DLU_UP_SFID_PARAM_9 = int(9)
+    DLU_UP_SFID_SET_HOME = int(48)
+    DLU_UP_SFID_SET_TIME = int(49)
+    DLU_UP_SFID_TELEMETRY_1 = int(64)
+    DLU_UP_SFID_TELEMETRY_10 = int(73)
+    DLU_UP_SFID_TELEMETRY_11 = int(74)
+    DLU_UP_SFID_TELEMETRY_12 = int(75)
+    DLU_UP_SFID_TELEMETRY_13 = int(76)
+    DLU_UP_SFID_TELEMETRY_14 = int(77)
+    DLU_UP_SFID_TELEMETRY_15 = int(78)
+    DLU_UP_SFID_TELEMETRY_16 = int(79)
+    DLU_UP_SFID_TELEMETRY_2 = int(65)
+    DLU_UP_SFID_TELEMETRY_3 = int(66)
+    DLU_UP_SFID_TELEMETRY_4 = int(67)
+    DLU_UP_SFID_TELEMETRY_5 = int(68)
+    DLU_UP_SFID_TELEMETRY_6 = int(69)
+    DLU_UP_SFID_TELEMETRY_7 = int(70)
+    DLU_UP_SFID_TELEMETRY_8 = int(71)
+    DLU_UP_SFID_TELEMETRY_9 = int(72)
+    DLU_UP_SFID_TRACK_FOLLOW_WAYPOINT_1 = int(90)
+    DLU_UP_SFID_TRACK_FOLLOW_WAYPOINT_2 = int(91)
+    DLU_UP_SFID_WAYPOINT_1 = int(80)
+    DLU_UP_SFID_WAYPOINT_10 = int(89)
+    DLU_UP_SFID_WAYPOINT_2 = int(81)
+    DLU_UP_SFID_WAYPOINT_3 = int(82)
+    DLU_UP_SFID_WAYPOINT_4 = int(83)
+    DLU_UP_SFID_WAYPOINT_5 = int(84)
+    DLU_UP_SFID_WAYPOINT_6 = int(85)
+    DLU_UP_SFID_WAYPOINT_7 = int(86)
+    DLU_UP_SFID_WAYPOINT_8 = int(87)
+    DLU_UP_SFID_WAYPOINT_9 = int(88)
+    DOWNLOADALTANDRADIUSLIMITFORSETTING_ACTION = "android.action.downloadaltanddislimitforsetting"
+    DOWNLOADBACKALTVALUEANDLOSECONTROLMODELFORSETTING_ACTION = "android.action.downloadbackaltvalueandlosecontrolmodelforsetting"
+    DOWNLOADDATAFORBATTERY_ACTION = "android.action.downloaddataforbattery"
+    DOWNLOADDATAFORCALIBRATEBAROMETER_ACTION = "android.action.downloaddataforcalibratebarometer"
+    DOWNLOADDATAFORCALIBRATEGIMBAL_ACTION = "android.action.downloaddataforcalibrategimbal"
+    DOWNLOADDATAFORCALIBRATEMODULE_ACTION = "android.action.downloaddataforcalibratemodule"
+    DOWNLOADDATAFORCALIBRATEUAV_ACTION = "android.action.downloaddataforcalibrateuav"
+    DOWNLOADDATAFORFLIGHTCONTROL_ACTION = "android.action.downloaddataforflightcontrol"
+    DOWNLOADDATAFORMODULE_ACTION = "android.action.downloadmoduledata"
+    DOWNLOADDATAFORSTICKMODEL_ACTION = "android.action.downloadstickmodel"
+    DOWNLOADDIRECTIONAGILITY_ACTION = "android.action.downloaddirectionagility"
+    DOWNLOADEDALLWAYPOINTS_ACTION = "android.action.downloadedallwaypoints"
+    DOWNLOADFLIGHTPARAMSFAIL_ACTION = "android.action.downloadflightparamsfail"
+    DOWNLOADINGSUBFRAMEBYTE_ACTION = "android.action.downloadingsubframebyte"
+    DOWNLOADINGWAYPOINTTYPE_ACTION = "android.action.downloadingwaypointtype"
+    DOWNLOADINGWAYPOINT_ACTION = "android.action.downloadingwaypoint"
+    DOWNLOADSKILLLEVEL_ACTION = "android.action.downloadskilllevel"
+    DRAG = 1
+    DURATION = [None] * 2
+    EARTHRADIUS = 6378.137
+    EARTH_R = 6371200.0
+    ELECTRIC = int(0)
+    EMERGYSTOP = "android.action.emergystop"
+    E_UPGRADE_FAIL = 4
+    E_UPGRADE_NOT_READY = 0
+    E_UPGRADE_READY = 1
+    E_UPGRADE_RUNNING = 2
+    E_UPGRADE_SUCCESS = 3
+    FACE_TO_GCS = int(0)
+    FAIL = int(1)
+    FAIL_CONTINUE = int(2)
+    FAIL_GO_HOME = int(1)
+    FAIL_HOLD = int(0)
+    FIRSTLEVELDIRECTORYINDEX = "firstleveldirectoryindex"
+    FLAGOFRECEIVETHREAD = "android.action.flagofreceivethread"
+    FLIGHTCONTROLFORSETTING = 0
+    FLIGHTCONTROL_SETTING = 0
+    FLIGHTMODELINDEX = "flightmodelindex"
+    FLIGHTMODELINDEXFORMENUDIALOG = "flightmodelindexformenudialog"
+    FLIGHTMODELINDEX_AUTO = 3
+    FLIGHTMODELINDEX_CIRCLE = 4
+    FLIGHTMODELINDEX_HOVERANDAIM = 1
+    FLIGHTMODELINDEX_LOOKDOWN = 7
+    FLIGHTMODELINDEX_MULTIPOINT = 10
+    FLIGHTMODELINDEX_RELATIVEPOSITION = 2
+    FLIGHTMODELINDEX_SELFIE = 5
+    FLIGHTMODELINDEX_SIGNALCIRCLE = 8
+    FLIGHTMODELINDEX_SIMPLE = 0
+    FLIGHTMODELINDEX_TOPOINT = 9
+    FLIGHTMODELINDEX_TRACK = 6
+    FLIGHTMODEL_ACTION = "android.action.flightmodel"
+    FLIGHTMODEL_ATTITUDE = int(13)
+    FLIGHTMODEL_AUTO = int(4)
+    FLIGHTMODEL_BACKING = int(12)
+    FLIGHTMODEL_CIRCLE = int(5)
+    FLIGHTMODEL_GPSVELOCITY = int(11)
+    FLIGHTMODEL_HOVERANDAIM = int(1)
+    FLIGHTMODEL_LANDING = int(14)
+    FLIGHTMODEL_LOOKDOWN = int(2)
+    FLIGHTMODEL_MULTIPOSITIONNAVIGATE = int(10)
+    FLIGHTMODEL_NOTAVAILABLE = int(16)
+    FLIGHTMODEL_RELATIVEPOSITION = int(3)
+    FLIGHTMODEL_SELFIE = int(6)
+    FLIGHTMODEL_SIMPLE = int(0)
+    FLIGHTMODEL_SINGLECIRCLE = int(8)
+    FLIGHTMODEL_TOPOINT = int(9)
+    FLIGHTMODEL_TRACK = int(7)
+    FLIGHTPARAMSDOWNLOADED_ACTION = "android.action.flightparamsdownloaded"
+    FLIGHT_MODE_AUTO = int(3)
+    FLIGHT_MODE_MANUAL = int(1)
+    FLIGHT_MODE_STABILIZED = int(2)
+    FOLLOWAGILITYVALUE = "followagilityvalue"
+    FOLLOWAGILITYVALUE_DEFAULT = 20
+    FOLLOWWAYPOINTPARAMETERDRAGEND_ACTION = "android.action.followwaypointparsmeterdragendaction"
+    FRAGMENT_FLIGHT = 0
+    FRAGMENT_MEDIA = 1
+    FRAMELENGTH = 47
+    FUEL = int(1)
+    F_AEROBATICS = int(1)
+    F_AUTO_AEROBATICS = int(5)
+    F_AUTO_LEVEL = int(2)
+    F_FOLLOW_CRUISE = int(7)
+    F_FOLLOW_MANUAL = int(6)
+    F_GPS_CRUISE = int(4)
+    F_GPS_HOLD = int(3)
+    GATT_SERVICES_DISCOVERED_ACTION = "android.action.gattservicediscovered"
+    GETVERSIONVALUES_ACTION = "android.action.getversionvalues"
+    GIMBALAGILITYVALUE = "gimbalagilityvalue"
+    GIMBALAGILITYVALUE_DEFAUT = 2
+    GIMBAL_LOOK_DOWN = int(2)
+    GO_HOME_DISANLE = int(0)
+    GO_HOME_ENABLE = int(1)
+    GO_HOME_HEADING_BACKWARDS = int(2)
+    GO_HOME_HEADING_TOWARDS = int(1)
+    GPS_HOLD_HEADING_FACE_TO_GCS = int(1)
+    GPS_HOLD_HEADING_NORMAL = int(0)
+    GPS_STATUS_2DFIX = int(2)
+    GPS_STATUS_3DFIX = int(3)
+    GPS_STATUS_NOFIX = int(1)
+    GYROSCOPSEVALUEFORMODULE_ACTION = "android.action.gyroscopevalueformodule"
+    GYROSCOPSEVALUEFORUAV_ACTION = "android.action.gyroscopevalueforuav"
+    HANDSETTINGLAYOUTINDEX = 6
+    HAND_CONTROL = int(0)
+    HAND_CONTROL_GIMBAL = int(0)
+    HEADING = [None] * 2
+    HEART_RATE_MEASUREMENT = "0000fff1-0000-1000-8000-00805f9b34fb"
+    HOME_LOCK = int(2)
+    HOVERANDAIMFOLLOW = 1
+    HOVERANDAIMFOLLOWORDER_ACTION = "android.action.hoverandaimfolloworder"
+    HOVETIME = int(1)
+    IMPERIALUNIT = 1
+    INTELLIGENTFLIGHTMODEL01 = 0
+    INTELLIGENTFLIGHTMODEL02 = 1
+    INTELLIGENTFLIGHTMODEL03 = 2
+    INTERVALOFSENSORDATA = 50
+    INTERVALOFSTARTTHREAD = 100
+    INVERT_FLIGHT = int(1)
+    IOC_DISABLE = int(0)
+    IOC_ENABLE = int(1)
+    IOC_FUNCTION_COURSE_LOCK = int(1)
+    IOC_FUNCTION_HOME_LOCK = int(2)
+    IOC_FUNCTION_OFF = int(0)
+    IOC_FUNCTION_POI = int(3)
+    ISFIRSTSHOWAUTOFOLLOW = "isfirstshowautofollow"
+    ISFIRSTSHOWCIRCLEFOLLOW = "isfirstshowcirclefollow"
+    ISFIRSTSHOWRELATIVEPOSITIONFOLLOW = "isfirstshowrelativepositionfollow"
+    ISFIRSTSHOWSELFIEFOLLOW = "isfirstshowselfiefollow"
+    ISOINDEX = 10
+    ISSHOWTRACKFORSETTING = "isshowtrackforsetting"
+    KEEP_ABSOLUTE = int(2)
+    KEEP_RELATIVE = int(1)
+    LAND_ACTION = "android.action.land"
+    LATITUDE = [None] * 4
+    LED_FORBID_ALARM_OFF = int(0)
+    LED_FORBID_ALARM_ON = int(1)
+    LED_HAND_RECORD_COURSE = int(1)
+    LED_HAND_RECORD_HOME = int(2)
+    LED_HAND_RECORD_INTEREST = int(3)
+    LED_HAND_RECORD_NULL = int(0)
+    LED_RC_FAIL = int(1)
+    LED_RC_OK = int(0)
+    LED_VPOWER_BAD = int(5)
+    LED_VPOWER_LOST = int(3)
+    LED_VPOWER_LOW_1 = int(1)
+    LED_VPOWER_LOW_2 = int(2)
+    LED_VPOWER_OK = int(0)
+    LED_VPOWER_PRE_1 = int(4)
+    LED_WARNING_AND_DECENDING = int(1)
+    LED_WARNING_AND_GH_LANDING = int(2)
+    LED_WARNING_ONLY = int(0)
+    LINE_STATUS = int(1)
+    LOGFILENAME = "log_android.log"
+    LONGITUDE = [None] * 4
+    LOOKDOWNFOLLOW = 2
+    LOOKDOWNFOLLOWORDER_ACTION = "android.action.lookdownfolloworderone"
+    LOSECONTROLFORSETTING = "outofcontrolforsetting"
+    LOSECONTROLSTRS_CHINA = ["", "", ""]
+    LOSECONTROLSTRS_ENGLISH = ["Hover", "Go Home", "Go On"]
+    LOSECONTROLVALUE = "losecontrolvalue"
+    LOSECONTROLVALUE_DEFAULT = 1
+    MAGNETICVALUEFORMODULE_ACTION = "android.action.magneticvalueformodule"
+    MAGNETICVALUEFORUAV_ACTION = "android.action.magneticvalueforuav"
+    MANUALFOLLOW = 3
+    MAPCHANGEFORHANDLER = 3
+    MAPCHANGEFORSETTING = "mapchangeforsetting"
+    MAPCHANGESTRS = ["", "google"]
+    MAPSTYLEFORHANDLER = 4
+    MAPSTYLEFORSETTING = "mapstyleforsetting"
+    MAPSTYLEISNORMAL = 0
+    MAPSTYLEISSATELLITE = 1
+    MAPSTYLESTRS = ["", ""]
+    MAXDISTANCE = 100
+    MAXNUMFORMULTI = 100
+    MAXNUMFORTRACKFOLLOW = 30
+    MAXVALUEFORSTICKCALIBRATE = 105
+    MAXVALUEOFALTANDBACKALTVALUE_NORMAL = 120
+    MAXVALUEOFALTANDBACKALTVALUE_UNNORMAL = 500
+    MAXVALUEOFALTITUDEFORRELATIVEPOSITIONANDAUTO = 120
+    MAXVALUEOFALTITUDEFORSELFIE = 50
+    MAXVALUEOFDIRECTIONAGILITY = 15
+    MAXVALUEOFDISTANCE = 1000
+    MAXVALUEOFDISTANCEFORFOLLOW = 100
+    MAXVALUEOFFOLLOWAGILITY = 250
+    MAXVALUEOFGIMBALAGILITY = 10
+    MAXVALUEOFRADIUSFORCIRCLEFOLLOW = 100
+    MAXVALUEOFSPEED = 12
+    MAXVALUEOFVCIRCLEFORCIRCLEFOLLOW_ANTICLOCK = -10
+    MAXVALUEOFVCIRCLEFORCIRCLEFOLLOW_CLOCK = 10
+    MAXVALUEOFVELOCITYFORSELFIE = 10
+    MEDIASIZELAYOUTINDEX = 2
+    METRICTOIMPERIAL = 3.28084
+    METRICTOIMPERIAL_SPEED = 0.449
+    METRICUNIT = 0
+    MINVALUEOFALTANDBACKALTVALUE = 20
+    MINVALUEOFALTITUDEFORRELATIVEPOSITIONANDAUTO = 5
+    MINVALUEOFALTITUDEFORSELFIE = 0
+    MINVALUEOFDIRECTIONAGILITY = 2
+    MINVALUEOFDISTANCE = 50
+    MINVALUEOFDISTANCEFORFOLLOW = 5
+    MINVALUEOFFOLLOWAGILITY = 20
+    MINVALUEOFGIMBALAGILITY = 1
+    MINVALUEOFRADIUSFORCIRCLEFOLLOW = 5
+    MINVALUEOFSPEED = 5
+    MINVALUEOFVELOCITYFORSELFIE = 1
+    MODE = int(0)
+    MODEL_TYPE_HEXA_ROTOR_IY = int(15)
+    MODEL_TYPE_HEXA_ROTOR_V = int(14)
+    MODEL_TYPE_HEXA_ROTOR_Y = int(16)
+    MODEL_TYPE_HEXA_ROTOT_I = int(13)
+    MODEL_TYPE_OCTO_ROTOR_I = int(18)
+    MODEL_TYPE_OCTO_ROTOR_V = int(19)
+    MODEL_TYPE_OCTO_ROTOR_X = int(17)
+    MODEL_TYPE_QUAD_ROTOR_I = int(11)
+    MODEL_TYPE_QUAD_ROTOR_X = int(12)
+    MODE_CIRCLE = int(3)
+    MODE_CROSS = int(2)
+    MODE_HOVER = int(4)
+    MODE_LANDING = int(5)
+    MODE_RUNWAY = int(6)
+    MODE_TAKEOFF = int(1)
+    MODE_TO_GPS_HOLD = int(8)
+    MODE_TO_HAND_LANDING = int(7)
+    MODULEDATAFORSETTING = 1
+    MOTORNOTSTART_ACTION = "android.action.motornotstart"
+    MOTORSTART_ACTION = "android.action.motorstart"
+    MOTORSTATE_ACTION = "android.action.motorstate"
+    MOTOR_DISABLE = int(0)
+    MOTOR_DISABLED = int(0)
+    MOTOR_ENABLE = int(1)
+    MOTOR_ENABLED = int(1)
+    MOTOR_IDLE_SPEED_LEVEL_1 = int(1)
+    MOTOR_IDLE_SPEED_LEVEL_2 = int(2)
+    MOTOR_IDLE_SPEED_LEVEL_3 = int(3)
+    MOTOR_IDLE_SPEED_LEVEL_4 = int(4)
+    MOTOR_IDLE_SPEED_LEVEL_5 = int(5)
+    MOTOR_STOP_IMMEDIATELY = int(0)
+    MOTOR_STOP_INTELLIGENT = int(1)
+    MOUT_TYPE_BACK = int(21)
+    MOUT_TYPE_FORWARD = int(17)
+    MOUT_TYPE_LEFT = int(1)
+    MOUT_TYPE_RIGHT = int(11)
+    MULTIPHOTOGRAPHLAYOUTINDEX = 3
+    MULTIPOINTINDEXFORDOWNLOAD = 7
+    MULTIPOINTNAVIGATEFOLLOW = 2
+    MULTIPOINTNAVIGATEFOLLOWORDERTWO_ACTION = "android.action.multipointnavigatefollowordertwo"
+    MULTI_WAYPOINT_FOLLOW = int(8)
+    MULTI_WAYPOINT_INGROUND = int(5)
+    NAMEOFBLE = "nameforble"
+    NAMEOFBLEFORJOYSTICK = "Joystick"
+    NAMEOFBLEFORTAROT = "tarot"
+    NAMEOFBLEFORWATCH = "Watch"
+    NEXTINDEX = int(1)
+    NONE = 0
+    NORMAL = int(0)
+    NORMAL_FLIGHT = int(0)
+    NOWAYPOINTTODOWNLOAD_ACTION = "android.action.nowaypointtodownload"
+    NULL_STATUS = int(0)
+    OK = int(0)
+    OPENGPS_ACTION = "android.action.opengps"
+    ORIENTATION_ACTION = "android.action.orientation"
+    OTHERDATAFORSETTING = 5
+    OTHER_SETTING = 3
+    OUTOFCONTROLMODELFOUR = 3
+    OUTOFCONTROLMODELONE = 0
+    OUTOFCONTROLMODELTHREE = 2
+    OUTOFCONTROLMODELTWO = 1
+    PAUSE_CYCLE_STATUS = int(4)
+    PAUSE_HOVER_STATUS = int(2)
+    PHOTOATFIXTIMELAYOUTINDEX = 5
+    PHOTOCAPMODEINDEX = 7
+    PHOTOSCALELAYOUTINDEX = 1
+    PHOTOSIZELAYOUTINDEX = 0
+    PHOTOSTYLIZEINDEX = 8
+    PI = 3.1415927
+    PID_DISABLE = int(0)
+    PID_ENABLE = int(1)
+    PLANELATLNG_ACTION = "android.action.planelatlng"
+    POINT_OF_INTERSET = int(3)
+    POSTUREVALUEOFDRONE_ACTION = "android.action.posturevalueofdrone"
+    PROPERTY = int(0)
+    PROTECT_OFF = int(0)
+    PROTECT_ON = int(1)
+    RADIUS = [None] * 2
+    RADIUSVALUE = int(5)
+    RC_AILERON = int(0)
+    RC_AUX1 = int(12)
+    RC_AUX2 = int(13)
+    RC_COLLECTIVE = int(5)
+    RC_ELEVATOR = int(1)
+    RC_FMODE = int(4)
+    RC_GEAR = int(8)
+    RC_GIMBAL_TILT = int(9)
+    RC_GOHOME = int(6)
+    RC_IOC = int(7)
+    RC_RUDDER = int(3)
+    RC_SWITCH_CAM = int(10)
+    RC_SWITCH_OSD = int(11)
+    RC_THROTTLE = int(2)
+    RECONNECTBLE_ACTION = "android.action.reconnectble"
+    RELATIVEPOSITIONFOLLOW = 0
+    RELATIVEPOSITIONFOLLOWORDERONE_ACTION = "android.action.relativepositionfolloworderone"
+    RELATIVEPOSITIONFOLLOWORDERTWO_ACTION = "android.action.relativepositionfollowordertwo"
+    RELATIVEPOSITIONINDEXFORDOWNLOAD = 0
+    RELATIVE_POSITION_FOLLOW = int(10)
+    RESETALLPARAMS_ACTION = "android.action.resetallparams"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBAROMETERDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadbarometerdata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBATTERYDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadbatterydata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADFLIGHTCONTROLDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadflightcontroldata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADGIMBALDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadgimbaldata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULEDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadmoduledata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULESENSORDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadmodulesensordata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADSTICKDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloadstickdata"
+    RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADUAVSENSORDATA_ACTION = "android.action.resetsubframeafterbreakuploadwaypointfordownloaduavsensordata"
+    RESETUPLOADWAYPOINTFLAG_ACTION = "android.action.resetuploadwaypointflag"
+    RESULTFORAUTOFOLLOWCOMMANDONE_ACTION = "android.action.resultforautofollowcommandone"
+    RESULTFORAUTOFOLLOWCOMMANDTWO_ACTION = "android.action.resultforautofollowcommandtwo"
+    RESULTFORCALIBRATEGIMBAL_ACTION = "android.action.resultforcalibrategimbal"
+    RESULTFORCIRCLEFOLLOWCOMMANDONE_ACTION = "android.action.resultforcirclefollowcommandone"
+    RESULTFORCIRCLEFOLLOWCOMMANDTWO_ACTION = "android.action.resultforcirclefollowcommandtwo"
+    RESULTFOREMERGYSTOP_ACTION = "android.action.resultforemergystop"
+    RESULTFORGOHOME_ACTION = "android.action.resultforgohome"
+    RESULTFORHOVERANDAIMFOLLOWCOMMAND_ACTION = "android.action.resultforhoverandaimfollowcommand"
+    RESULTFORLAND_ACTION = "android.action.resultforland"
+    RESULTFORLOOKDOWNFOLLOWCOMMAND_ACTION = "android.action.resultforlookdownfollowcommand"
+    RESULTFORMOTORRUN_ACTION = "android.action.resultformotorrun"
+    RESULTFORMULTIPOINTCOMMANDONE_ACTION = "android.action.resultformultipointcommandone"
+    RESULTFORMULTIPOINTCOMMANDTWO_ACTION = "android.action.resultformultipointcommandtwo"
+    RESULTFORNEUTRALPOINTCALIBRATE_ACTION = "android.action.resultforneutralpointcalibrate"
+    RESULTFORRELATIVEPOSITIONFOLLOWCOMMANDONE_ACTION = "android.action.resultforrelativepositionfollowcommandone"
+    RESULTFORRELATIVEPOSITIONFOLLOWCOMMANDTWO_ACTION = "android.action.resultforrelativepositionfollowcommandtwo"
+    RESULTFORSELFIEFOLLOWCOMMANDONE_ACTION = "android.action.resultforselfiefollowcommandone"
+    RESULTFORSELFIEFOLLOWCOMMANDTWO_ACTION = "android.action.resultforselfiefollowcommandtwo"
+    RESULTFORSETMODULEPOSITIONASBACKPOSITION_ACTION = "android.action.resultforsetmodulepositionasbackposition"
+    RESULTFORSETTAKEOFFPOSITIONASBACKPOSITION_ACTION = "android.action.resultforsettakeoffpositionasbackposition"
+    RESULTFORSETUAVPOSITIONASBACKPOSITIONCOMMANDONE_ACTION = "android.action.resultforsetuavpositionasbackpositioncommandone"
+    RESULTFORSETUAVPOSITIONASBACKPOSITIONCOMMANDTWO_ACTION = "android.action.resultforsetuavpositionasbackpositioncommandtwo"
+    RESULTFORSIGNALCIRCLECOMMANDONE_ACTION = "android.action.resultforsignalcirclecommandone"
+    RESULTFORSIGNALCIRCLECOMMANDTWO_ACTION = "android.action.resultforsignalcirclecommandtwo"
+    RESULTFORSIMPLEFOLLOWCOMMAND_ACTION = "android.action.resultforsimplefollowcommand"
+    RESULTFORSTARTCALIBRATE_ACTION = "android.action.resultforstartcalbrate"
+    RESULTFORSTOPCALIBRATE_ACTION = "android.action.resultforstopcalbrate"
+    RESULTFORTAKEOFF_ACTION = "android.action.resultfortakeoff"
+    RESULTFORTOPOINTCOMMANDONE_ACTION = "android.action.resultfortopointcommandone"
+    RESULTFORTOPOINTCOMMANDTWO_ACTION = "android.action.resultfortopointcommandtwo"
+    RESULTFORTRACKFOLLOWCOMMANDONE_ACTION = "android.action.resultfortrackfollowcommandone"
+    RESULTFORTRACKFOLLOWCOMMANDTWO_ACTION = "android.action.resultfortrackfollowcommandtwo"
+    RESULTOFCALIBBAROMETER_ACTION = "android.action.resultofcalibbarometer"
+    RESULTOFCALIBGYROANDACCFORDRONE_ACTION = "android.action.resultofcalibgyroandaccfordrone"
+    RESULTOFCALIBGYROANDACCFORMODULE_ACTION = "android.action.resultofcalibgyroandaccformodule"
+    RESULTOFCALIBMAGFIRDRONE_ACTION = "android.action.resultofcalibmagfordrone"
+    RESULTOFCALIBMAGFORMODULE_ACTION = "android.action.resultofcalibmagformodule"
+    RESULTOFCOMMAND_FAIL = 0
+    RESULTOFCOMMAND_SUCCESS = 1
+    RESULTOFSAVEFLASH_ACTION = "android.action.resultofsaveflash"
+    ROUTE_CYCLE_STATUS = int(5)
+    ROUTE_DIR = int(2)
+    ROUTE_DIR_180 = int(4)
+    ROUTE_DIR_270 = int(5)
+    ROUTE_DIR_90 = int(3)
+    ROUTE_VERTICAL_STATUS = int(3)
+    SATELLITEAMOUNTANDAVAILABLE = "android.action.satelliteamountandavailable"
+    SCALEFORBAIDU = [20.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0, 10000.0, 20000.0, 25000.0, 50000.0, 100000.0, 200000.0, 500000.0, 1000000.0, 2000000.0]
+    SCALEFORGOOGLE = [1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0, 10000.0, 20000.0, 50000.0, 100000.0, 200000.0, 500000.0, 1000000.0, 2000000.0]
+    SDC_STA_ERROR = int(2)
+    SDC_STA_INIT = int(0)
+    SDC_STA_RUN = int(1)
+    SECONDLEVELDIRECTORYINDEXONE = "secondleveldirectoryindexone"
+    SECONDLEVELDIRECTORYINDEXTHREE = "secondleveldirectoryindexthree"
+    SECONDLEVELDIRECTORYINDEXTWO = "secondleveldirectoryindextwo"
+    SELFIEFOLLOW = 3
+    SELFIEFOLLOWORDERONE_ACTION = "android.action.selfiefolloworderone"
+    SELFIEFOLLOWORDERTWO_ACTION = "android.action.selfiefollowordertwo"
+    SELFIEINDEXFORDOWNLOAD = 3
+    SELFIE_FOLLOW = int(9)
+    SENDDIGITALSIGNAL_ACTION = "android.action.senddigitalsignalaction"
+    SENDHOMELATLNG_ACTION = "android.action.sendhomelatlngaction"
+    SENDMODULEDATA_ACTION = "android.action.sendmoduleaction"
+    SERVERNAME = "servername"
+    SETMODULEPOSITIONASBACKPOSITION_ACTION = "android.action.setmodulepositionasbackposition"
+    SETPOINTCIRCLEFOLLOWORDERTWO_ACTION = "android.action.setpointcirclefollowordertwo"
+    SETSTICKMODELSUCCESS_ACTION = "android.action.setstickmodelsuccess"
+    SETSUBFRAMEBYTE_ACTION = "android.action.setsubframebyteaction"
+    SETTAKEOFFPOSITIONASBACKPOSITION_ACTION = "android.action.settakeoffpositionasbackposition"
+    SETUAVCURRENTPOSITIONASHOME_ACTION = "android.action.setuavcurrentpositionashome"
+    SHAREDPERFERENCESFORBLE = "sharedpreferencesforble"
+    SHAREDPERFERENCESFORSETTING = "sharedpreferencesforsetting"
+    SHAREDPREFERENCESFORDENSITY = "sharedpreferencesfordensity"
+    SHAREDPREFERENCESFORSHOWFLIGHTFOLLOW = "sharedpreferencesforshowflightfollow"
+    SHAREDPREFERENCESFORVERSIONS = "sharedpreferencesforversions"
+    SHOWBAIDUMAP = 0
+    SHOWGOOGLEMAP = 1
+    SHUTTERINDEX = 11
+    SIGNALCIRCLEINDEXFORDOWNLOAD = 5
+    SIGNALPOINTCIRCLE = 0
+    SIMPLEFOLLOW = 0
+    SIMPLEFOLLOWORDER_ACTION = "android.action.simplefollow"
+    SKILLLEVELVALUE_DEFAULT = 0
+    SPEEDVALUE = "speedvalue"
+    SPEEDVALUE_DEFAULT = 8
+    STARTCALIBRATESTICK_ACTION = "android.action.startcalibratestick"
+    STARTMOTOR_ACTION = "android.action.startmotor"
+    STARTSENDBACKTOUAVPOSITIONCOMMANDTWO_ACTION = "android.action.startsendbacktouavpositioncommandtwo"
+    STARTSENDTAKEOFFCOMMAND_ACTION = "android.action.startsendtakeoffcommand"
+    STARTSHOWVALUEFORJOYSTICK_ACTION = "android.action.startshowvalueforjoystick"
+    STARTTIMES = "starttimes"
+    STARTTIMESFORPROJECT = "starttimesforproject"
+    STARTTOSAVELOG_ACTION = "android.action.starttosavelog"
+    START_RPM_CALIB = int(1)
+    START_RPM_HOLD = int(2)
+    STICKDATAFORSETTING = 3
+    STICKMODELFORSETTING = "stickmodelforsetting"
+    STICKMODELFOUR = 3
+    STICKMODELONE = 0
+    STICKMODELTHREE = 2
+    STICKMODELTWO = 1
+    STICKMODELVALUE_ACTION = "android.action.stickmodelvalue"
+    STICKMODEL_SETTING = 1
+    STOPCALIBRATESTICK_ACTION = "android.action.stopcalibratestick"
+    STOPDOWNLOADCALIBRATEDATA_ACTION = "stopdownloadcalibratedata"
+    STOPSHOWVALUEFORJOYSTICK_ACTION = "android.action.stopshowvalueforjoystick"
+    STOPUPLOADWAYPOINTINFO_ACTION = "android.action.stopuploadwaypoint"
+    STOP_RPM_HOLD = int(0)
+    SUBFRAMEBYTESEND_ACTION = "android.action.subframebytesendaction"
+    SUBFRAMEPOSITION = 36
+    SYNCHRONIZETIME_ACTION = "android.action.synchronizetime"
+    SYNCTIME_ACTION = "android.action.synctime"
+    TASK = WaypointTask()
+    TELEMETERY_TYPE_AIRPLANE = int(1)
+    TELEMETERY_TYPE_HOME = int(3)
+    TELEMETERY_TYPE_SYSTEM = int(2)
+    TELEMETRY_ALTITUDE = 4
+    TELEMETRY_BACKTOFLIGHTBTN_ENABLE = 21
+    TELEMETRY_CANNOTSCANIP = 27
+    TELEMETRY_CONTROLMODEOFGIMBAL = 19
+    TELEMETRY_DIGITALTRANSFER = 2
+    TELEMETRY_DISTANCE = 5
+    TELEMETRY_DOWNLOADINGWAYPOINT = 14
+    TELEMETRY_DOWNLOADSTICKMODE = 34
+    TELEMETRY_DRONESTATE_DISENABLE = 31
+    TELEMETRY_DRONESTATE_ENABLE = 30
+    TELEMETRY_FLIGHTMODE = 0
+    TELEMETRY_FOUNDMEDIADEVICEBEFORESCANOVER = 21
+    TELEMETRY_FOUNDMEDIADEVICEWHENSCANOVER = 22
+    TELEMETRY_FRAGMENTBTNENABLE = 24
+    TELEMETRY_HORIZONTALVELOCITY = 6
+    TELEMETRY_LANDSUCCESS = 12
+    TELEMETRY_LEFTTIMEFORFLIGHT = 20
+    TELEMETRY_MODULESTATE_DISENABLE = 29
+    TELEMETRY_MODULESTATE_ENABLE = 28
+    TELEMETRY_NOTFOUNDMEDIADEVICE = 23
+    TELEMETRY_PICTURETRANSFER = 3
+    TELEMETRY_ROTATEANGLEFORCOMPASSANDMAP = 8
+    TELEMETRY_SATELLITESTATE = 1
+    TELEMETRY_SETMODULEPOSITIONASBACKPOSITION = 10
+    TELEMETRY_SETUIBYCAMERASETTING = 25
+    TELEMETRY_STOPRECORDVIDEO = 33
+    TELEMETRY_TAKEOFFSUCCESS = 11
+    TELEMETRY_TIMEOFRECORDVIDEO = 32
+    TELEMETRY_VERTICALVELOCITY = 7
+    TELEMETRY_WAYPOINTUPLOADED = 9
+    TELEMETRY_WIFIISBROKEN = 26
+    TIMETOCLEARCOMMAND = 3000
+    TOPOINTFOLLOW = 1
+    TOPOINTFOLLOWORDERTWO_ACTION = "android.action.topointfollowordertwo"
+    TOPOINTINDEXFORDOWNLOAD = 6
+    TRACKFOLLOW = 4
+    TRACKFOLLOWORDERONETWO_ACTION = "android.action.trackfollowordertwo"
+    TRACKINDEXFORDOWNLOAD = 4
+    TRACK_FOLLOW = int(13)
+    TRANSFERDATATOHOMEACTIVITY = "android.action.transferdatatohomeactivity"
+    UI_PAGE_NAVIGATION = int(1)
+    UI_PAGE_SCOPE = int(5)
+    UI_PAGE_SETTING_1 = int(2)
+    UI_PAGE_SETTING_2 = int(3)
+    UI_PAGE_SETting_3 = int(4)
+    UI_PAGE_UPGRADE = int(6)
+    UNITFORHANDLER = 5
+    UNITFORSETTING = "unitforsetting"
+    UNITNAMESTRS = ["m", "ft"]
+    UNITSTRS = ["", ""]
+    UPDATEGPSCOUNT_ACTION = "android.action.updategpscount"
+    UPLOADALTLIMITVALUEFORSETTING_ACTION = "android.action.uploadaltlimitvalueforsetting"
+    UPLOADAUTOTOWATCH_ACTION = "android.action.uploadautotowatch"
+    UPLOADBACKALTVALUEFORSETTING_ACTION = "android.action.uploadbackaltvalueforsetting"
+    UPLOADCIRCLETOWATCH_ACTION = "android.action.uploadcircletowatch"
+    UPLOADDIRECTIONAGILITYFORSETTING_ACTION = "android.action.uploaddirectionagilityforsetting"
+    UPLOADEDALLWAYPOINTS_ACTION = "android.action.uploadedallwaypoints"
+    UPLOADFLIGHTPARAMSFAIL_ACTION = "android.action.uploadflightparamsfail"
+    UPLOADFLIGHTPARAMSOK_ACTION = "android.action.uploadflightparamsok"
+    UPLOADFLIGHTPARAMSSUCCESS_ACTION = "android.action.uploadflightparamssuccess"
+    UPLOADINGSUBFRAMEBYTE_ACTION = "android.action.uploadingwsubframebyte"
+    UPLOADINGWAYPOINTTYPE_ACTION = "android.action.uploadingwaypointtype"
+    UPLOADPARAM_21_ACTION = "android.action.uploadparam_21"
+    UPLOADRADIUSLIMITVALUEFORSETTING_ACTION = "android.action.uploadradiuslimitvalueforsetting"
+    UPLOADRELATIVEPOSITIONTOWATCH_ACTION = "android.action.uoloadrelativepositiontowatch"
+    UPLOADSELFIETOWATCH_ACTION = "android.action.uploadselfietowatch"
+    UPLOADSKILLLEVELFORSETTING_ACTION = "android.action.uploadskilllevelforsetting"
+    UPLOADSTICKMODELINEX_ACTION = "android.action.uploadstickmodelindex"
+    VCIRCLEVALUE = int(3)
+    VELOCITY = [None] * 2
+    VELOCITYVALUE = int(5)
+    VELOCITY_DIR = int(1)
+    VERSIONSOFDATASHAREDPREFERENCES = "versionsofdata"
+    VERSION_FIRMWAREUPGRADE_CHINA = "version_firmwareupgrade_china"
+    VERSION_FIRMWAREUPGRADE_ENGLISH = "version_firmwareupgrade_english"
+    VERSION_GUIDANCE_CHINA = "version_guidance_china"
+    VERSION_GUIDANCE_ENGLISH = "version_guidance_english"
+    VERSION_QUICKSTART_CHINA = "version_quickstart_china"
+    VERSION_QUICKSTART_ENGLISH = "version_quickstart_english"
+    WATCHBREAKUPLOADWAYPOINT_ACTION = "android.action.watchbreakuploadwaypoint"
+    WATCHISBUSY_ACTION = "android.action.watchisbusy"
+    WAYPOINTCOUNT = int(10)
+    WBSTYLEINDEX = 12
+    WIDTHFORTRACK_FLOAT = 5.0
+    WIDTHFORTRACK_INT = 5
+    WIFISSIDOFMEDIA = "FS17_5G_AP"
+    WIFIVIDEORESINDEX = 9
+    a = 6378245.0
+    ee = 0.006693421622965943
+    pi = 3.141592653589793
+    provinceArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    tmpBytes = [None] * 47
+
+    @classmethod
+    def getByteFromInt(cls, value):
+        """ generated source for method getByteFromInt """
+        return int((value & 255))
+
+    @classmethod
+    def getBytes(cls, data):
+        """ generated source for method getBytes_0 """
+        if type(data) in (float, double):
+            return cls.getBytes(Float.floatToIntBits(data))
+        return [(byte) (data & 255), (byte) ((MotionEventCompat.ACTION_POINTER_INDEX_MASK & data) >> 8), (byte) ((16711680 & data) >> 16), (byte) ((ViewCompat.MEASURED_STATE_MASK & data) >> 24)]
+
+    @classmethod
+    def getBytesFromShort(cls, azimuthShort):
+        """ generated source for method getBytesFromShort """
+        return [(byte) (azimuthShort >> 8), (byte) (azimuthShort >> 0)]
+
+    @classmethod
+    def getFloat(cls, bytes):
+        """ generated source for method getFloat """
+        return Float.intBitsToFloat(getInt(bytes))
+
+    @classmethod
+    def getInt(cls, bytes):
+        """ generated source for method getInt """
+        return (((bytes[0] & 255) | (MotionEventCompat.ACTION_POINTER_INDEX_MASK & (bytes[1] << 8))) | (16711680 & (bytes[2] << 16))) | (ViewCompat.MEASURED_STATE_MASK & (bytes[3] << 24))
+
+    @classmethod
+    def byteToBytes(cls, b):
+        """ generated source for method byteToBytes """
+        bytes = [None] * 4
+        i = 0
+        while i < 3:
+            bytes[i] = int(0)
+            i += 1
+        bytes[3] = b
+        return bytes
+
+    @classmethod
+    def getIntFromByteArray(cls, byteArray):
+        """ generated source for method getIntFromByteArray """
+        result = 0
+        i = 0
+        while i < 4:
+            result += (byteArray[i] & 255) << ((3 - i) * 8)
+            i += 1
+        return result
+
+    @classmethod
+    def bytes2HexString(cls, b):
+        """ generated source for method bytes2HexString """
+        ret = ""
+        for b2 in b:
+            hex = Integer.toHexString(b2 & 255)
+            if 1 == len(hex):
+                hex = StringBuilder(str('0')).append(hex).__str__()
+            ret = StringBuilder(str(ret)).append(hex.toUpperCase(Locale.getDefault())).__str__()
+        return ret
+
+    @classmethod
+    def CalculateCrc16(cls, tx, len):
+        """ generated source for method CalculateCrc16 """
+        crc = '\u0000'
+        crc_ta = [None] * 16
+        crc_ta[1] = '\u1021'
+        crc_ta[2] = '\u2042'
+        crc_ta[3] = '\u3063'
+        crc_ta[4] = '\u4084'
+        crc_ta[5] = '\u50a5'
+        crc_ta[6] = '\u60c6'
+        crc_ta[7] = '\u70e7'
+        crc_ta[8] = '\u8108'
+        crc_ta[9] = '\u9129'
+        crc_ta[10] = '\ua14a'
+        crc_ta[11] = '\ub16b'
+        crc_ta[12] = '\uc18c'
+        crc_ta[13] = '\ud1ad'
+        crc_ta[14] = '\ue1ce'
+        crc_ta[15] = '\uf1ef'
+        i = 0
+        len2 = len
+        while True:
+            len = len2 - 1
+            if len2 == 0:
+                return crc
+            da = int(((crc & 65535) >> 12))
+            crc = str((crc_ta[(((tx[i] & 255) >> 4) & 15) ^ da] ^ (str((crc << 4)))))
+            da = int(((crc & 65535) >> 12))
+            crc = str((crc_ta[(tx[i] & 15) ^ da] ^ (str((crc << 4)))))
+            i += 1
+            len2 = len
+
+    @classmethod
+    def getBytesFromChar(cls, ch):
+        """ generated source for method getBytesFromChar """
+        bytes = [None] * 2
+        temp = ch
+        bytes[0] = Integer.valueOf(temp & 255).byteValue()
+        bytes[1] = Integer.valueOf((temp >> 8) & 255).byteValue()
+        return bytes
+
+    @classmethod
+    def getShortFromBytes(cls, bytes):
+        """ generated source for method getShortFromBytes """
+        return int(((bytes[1] << 8) | (bytes[0] & 255)))
+
+    @classmethod
+    def byteArrayToInt_ZSY(cls, b):
+        """ generated source for method byteArrayToInt_ZSY """
+        return (((b[3] & 255) | ((b[2] & 255) << 8)) | ((b[1] & 255) << 16)) | ((b[0] & 255) << 24)
+
+    @classmethod
+    def intToByteArray_ZSY(cls, a):
+        """ generated source for method intToByteArray_ZSY """
+        return [(byte) ((a >> 24) & 255), (byte) ((a >> 16) & 255), (byte) ((a >> 8) & 255), (byte) (a & 255)]
+
+    @classmethod
+    def concatAll(cls, first, *rest):
+        """ generated source for method concatAll """
+        totalLength = int()
+        for array in rest:
+            len(array)
+        result = Arrays.copyOf(first, totalLength)
+        offset = int()
+        for array2 in rest:
+            System.arraycopy(array2, 0, result, offset, )
+            len(array2)
+        return result
+
