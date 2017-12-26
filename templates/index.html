@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TAROT BD Commander</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.css">
+	<script src="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.js"></script>
+	<style>
+		body {
+			margin: 0;
+		}
+		.button.takeoff {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+<div class="ui massive button green takeoff">
+	Takeoff
+</div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+	var source = new EventSource("{{ url_for('sse.stream') }}");
+	source.addEventListener('greeting', function(event) {
+	    var data = JSON.parse(event.data);
+	    // do what you want with this data
+	}, false);
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDazdMezdtZnXwcMsC04xFuz65s7241r84&callback=initMap">
+    </script>
+</body>
+</html>

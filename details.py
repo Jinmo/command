@@ -4,143 +4,233 @@ from abc import ABCMeta, abstractmethod
 from tool import Tool
 from math import sqrt
 from pprint import pformat
+import pprint
+
 # package: com.ceewa.demoforceewauav.service
 pending_broadcasts = []
+
+
 def sendBroadcast(x):
     # print 'sent broadcast', x
     pending_broadcasts.append(x)
+
+
 def connectBleDevice():
     return 'connecting to ble device'
+
+
 class Service(object):
     pass
+
+
 class Container(object):
     pass
+
+
 class Bundle(Container):
     def __init__(self):
         self.data = {}
+
     def putByte(self, x, y):
         self.data[x] = y & 0xff
+
     def putDouble(self, x, y):
         self.data[x] = float(y)
+
     def putShort(self, x, y):
         self.data[x] = y & 0xffff
+
     def putInt(self, x, y):
         self.data[x] = y & 0xffffffff
+
     def putByteArray(self, x, y):
         if y is None:
             if x in self.data:
                 del self.data[x]
         else:
             self.data[x] = bytearray(y)
+
     def __repr__(self):
         return '%r' % (self.data)
+
     pass
+
+
 class WayPointParameter(Container):
     pass
+
+
 class Intent(object):
     def __init__(self):
         self.extras = self.action = None
+
     def putExtras(self, x):
         self.extras = x
+
     def setAction(self, x):
         self.action = x
+
     def __repr__(self):
         return 'Intent<action=%r, extras=%r>' % (self.action, self.extras)
+
     pass
+
+
 class File(object):
     registered_path = {}
+
     def __init__(self, x):
         self.path = x
+
     def __repr__(self, x):
         return 'File <%r>' % x
+
     def getPath(self):
         return self.path
+
     def exists(self):
         return self.path in File.registered_path
+
     def mkdir(self):
-        print 'mkdir(%r)' % self.path
+        print('mkdir(%r)' % self.path)
         File.registered_path[self.path] = {
-        'type': 'directory'
+            'type': 'directory'
         }
         return
+
     def isDirectory(self):
         return File.registered_path[self.path]['type'] == 'directory'
+
     def getAbsolutePath(self):
         return self.path
+
     pass
+
+
 class StringBuilder(object):
     def __init__(self, x=''):
         self.data = [x]
+
     def append(self, x):
         self.data.append(x)
         return self
+
     def __str__(self):
         return ''.join(self.data)
+
     pass
+
+
 class Environment(object):
     @staticmethod
     def getExternalStorageDirectory():
         return File('<external storage>')
+
+
 class LocalBinder(object):
     pass
+
+
 class BluetoothGattCallback(object):
     pass
+
+
 class Timer(object):
     def cancel(self):
         pass
+
     pass
+
+
 class List(object):
     def __init__(self):
         self.data = []
+
     def clear(self):
         del self.data[:]
+
+
 class ArrayList(List):
     pass
+
+
 class Handler(object):
     pass
+
+
 class LinkedList(List):
     pass
+
+
 class BroadcastReceiver(object):
     pass
+
+
 class Thread(object):
     pass
+
+
 class Binder(object):
     pass
+
+
 class IntentFilter(object):
     def __init__(self):
         self.actions = []
+
     def addAction(self, x):
         self.actions.append(x)
+
+
 def registerReceiver(receiver, filter):
     # print 'registering receiver %r on %r' % (receiver, filter)
     pass
+
+
 class Application(object):
     def setSaveLogUtil(self, logpath):
-        print 'setting logpath: %r' % logpath
+        print('setting logpath: %r' % logpath)
         return
+
     def getSaveLogUtil(self):
         return
+
     pass
+
+
 g_app = Application()
+
+
 def getApplication():
     return g_app
+
+
 class ScheduledThreadPoolExecutor(object):
     def __init__(self, threads):
         self.threads = threads
+
     def scheduleAtFixedRate(self, thread, initialDelay, period, unit):
         pass
+
+
 class TimeUnit(object):
     MILLISECONDS = 0
+
+
 class bytearray(object):
     def __init__(self, x):
         if all(type(x) is str for x in x):
             x = map(ord, x)
         x = [x if x < 128 else x - 256 for x in x]
         self.data = x
+
     def __getitem__(self, x):
         return self.data.__getitem__(x)
+
     def __setitem__(self, x):
         return self.data.__setitem__(x)
+
+
 # package: com.ceewa.demoforceewauav.entity
 class UavInformation(object):
     """ generated source for class UavInformation """
@@ -180,6 +270,7 @@ class UavInformation(object):
     vn = float()
     vpower = int()
     vu = float()
+
 
 class TrackFollowWaypointParameter(object):
 
@@ -222,6 +313,7 @@ class TrackFollowWaypointParameter(object):
         """ generated source for method clone """
         return super(TrackFollowWaypointParameter, self).clone()
 
+
 class CacheForSelfie(object):
     """ generated source for class CacheForSelfie """
     altitude = float()
@@ -255,6 +347,7 @@ class CacheForSelfie(object):
     def clone(self):
         """ generated source for method clone """
         return super(CacheForSelfie, self).clone()
+
 
 class CacheForRelativePositionFollow(object):
     """ generated source for class CacheForRelativePositionFollow """
@@ -290,6 +383,7 @@ class CacheForRelativePositionFollow(object):
         """ generated source for method clone """
         return super(CacheForRelativePositionFollow, self).clone()
 
+
 class CacheForCircleFollow(object):
     """ generated source for class CacheForCircleFollow """
     altitude = float()
@@ -324,6 +418,7 @@ class CacheForCircleFollow(object):
         """ generated source for method clone """
         return super(CacheForCircleFollow, self).clone()
 
+
 class CacheForAutoFollow(object):
     """ generated source for class CacheForAutoFollow """
     altitude = float()
@@ -357,6 +452,7 @@ class CacheForAutoFollow(object):
     def clone(self):
         """ generated source for method clone """
         return super(CacheForAutoFollow, self).clone()
+
 
 class MoniteSocketForReceiveService(Service):
     """ generated source for class MoniteSocketForReceiveService """
@@ -693,6 +789,7 @@ class MoniteSocketForReceiveService(Service):
 
     class BluetoothStateChangeReceiver(BroadcastReceiver):
         """ generated source for class BluetoothStateChangeReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -702,6 +799,7 @@ class MoniteSocketForReceiveService(Service):
 
     class BreakUploadWaypointReceiver(BroadcastReceiver):
         """ generated source for class BreakUploadWaypointReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -713,6 +811,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateBarometerReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateBarometerReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -723,6 +822,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateGimbalReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateGimbalReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -733,6 +833,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateMagneticOfModuleReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateMagneticOfModuleReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -743,6 +844,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateMagneticOfUavReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateMagneticOfUavReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -753,6 +855,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateSensorOfModuleReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateSensorOfModuleReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -763,6 +866,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateSensorOfUavReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateSensorOfUavReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -773,6 +877,7 @@ class MoniteSocketForReceiveService(Service):
 
     class ClearCommandBeforeCalibrateStickNeutralReceiver(BroadcastReceiver):
         """ generated source for class ClearCommandBeforeCalibrateStickNeutralReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -783,6 +888,7 @@ class MoniteSocketForReceiveService(Service):
 
     class CountPacketsThread(Thread):
         """ generated source for class CountPacketsThread """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -790,16 +896,21 @@ class MoniteSocketForReceiveService(Service):
         def run(self):
             """ generated source for method run """
             super(self.__class__, self).run()
-            MoniteSocketForReceiveService.self.receivePacketCountBundle.putInt("receivecount", MoniteSocketForReceiveService.self.receiveCount)
-            MoniteSocketForReceiveService.self.receivePacketCountBundle.putInt("parse", MoniteSocketForReceiveService.self.parsereceiveCount)
-            MoniteSocketForReceiveService.self.receivePacketCountIntent.putExtras(MoniteSocketForReceiveService.self.receivePacketCountBundle)
+            MoniteSocketForReceiveService.self.receivePacketCountBundle.putInt("receivecount",
+                                                                               MoniteSocketForReceiveService.self.receiveCount)
+            MoniteSocketForReceiveService.self.receivePacketCountBundle.putInt("parse",
+                                                                               MoniteSocketForReceiveService.self.parsereceiveCount)
+            MoniteSocketForReceiveService.self.receivePacketCountIntent.putExtras(
+                MoniteSocketForReceiveService.self.receivePacketCountBundle)
             MoniteSocketForReceiveService.self.receivePacketCountIntent.setAction(Tool.COUNTPACKETSFORRECTHREAD)
-            MoniteSocketForReceiveService.self.sendBroadcast(MoniteSocketForReceiveService.self.receivePacketCountIntent)
+            MoniteSocketForReceiveService.self.sendBroadcast(
+                MoniteSocketForReceiveService.self.receivePacketCountIntent)
             MoniteSocketForReceiveService.self.receiveCount = 0
             MoniteSocketForReceiveService.self.parsereceiveCount = 0
 
     class DisconnectBluetoothReceiver(BroadcastReceiver):
         """ generated source for class DisconnectBluetoothReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -814,16 +925,19 @@ class MoniteSocketForReceiveService(Service):
 
     class DownloadingWaypointTypeReceiver(BroadcastReceiver):
         """ generated source for class DownloadingWaypointTypeReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
 
         def onReceive(self, context, intent):
             """ generated source for method onReceive """
-            MoniteSocketForReceiveService.self.downloadingWaypointTypeIndex = intent.getExtras().getInt("downloadingwaypointtype")
+            MoniteSocketForReceiveService.self.downloadingWaypointTypeIndex = intent.getExtras().getInt(
+                "downloadingwaypointtype")
 
     class LocalBinder(Binder):
         """ generated source for class LocalBinder """
+
         def getService(self):
             """ generated source for method getService """
             return MoniteSocketForReceiveService.self
@@ -831,12 +945,14 @@ class MoniteSocketForReceiveService(Service):
     class OnSubframeByteReceivedListener(object):
         """ generated source for interface OnSubframeByteReceivedListener """
         __metaclass__ = ABCMeta
+
         @abstractmethod
         def onSubframeByteReceived(self, i, b):
             """ generated source for method onSubframeByteReceived """
 
     class ResetAllParamsValueReceiver(BroadcastReceiver):
         """ generated source for class ResetAllParamsValueReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -848,6 +964,7 @@ class MoniteSocketForReceiveService(Service):
 
     class StartMotorCommandReceiver(BroadcastReceiver):
         """ generated source for class StartMotorCommandReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -862,6 +979,7 @@ class MoniteSocketForReceiveService(Service):
 
     class SubframeByteSendReceiver(BroadcastReceiver):
         """ generated source for class SubframeByteSendReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
@@ -872,13 +990,15 @@ class MoniteSocketForReceiveService(Service):
 
     class UploadingWaypointTypeReceiver(BroadcastReceiver):
         """ generated source for class UploadingWaypointTypeReceiver """
+
         def __init__(self):
             """ generated source for method __init__ """
             super(self.__class__, self).__init__()
 
         def onReceive(self, context, intent):
             """ generated source for method onReceive """
-            MoniteSocketForReceiveService.self.uploadingWaypointTypeIndex = intent.getExtras().getInt("uploadingwaypointtypeindex")
+            MoniteSocketForReceiveService.self.uploadingWaypointTypeIndex = intent.getExtras().getInt(
+                "uploadingwaypointtypeindex")
 
     def onCreate(self):
         """ generated source for method onCreate """
@@ -919,22 +1039,27 @@ class MoniteSocketForReceiveService(Service):
         self.clearCommandBeforeCalibrateSensorOfUavReceiver = self.ClearCommandBeforeCalibrateSensorOfUavReceiver()
         clearCommandBeforeCalibrateSensorOfUavFilter = IntentFilter()
         clearCommandBeforeCalibrateSensorOfUavFilter.addAction(Tool.CLEARCOMMANDBEFORECALIBRATESENSOROFUAV_ACTION)
-        registerReceiver(self.clearCommandBeforeCalibrateSensorOfUavReceiver, clearCommandBeforeCalibrateSensorOfUavFilter)
+        registerReceiver(self.clearCommandBeforeCalibrateSensorOfUavReceiver,
+                         clearCommandBeforeCalibrateSensorOfUavFilter)
         moniteSocketForReceiveService = self
         self.clearCommandBeforeCalibrateMagneticOfUavReceiver = self.ClearCommandBeforeCalibrateMagneticOfUavReceiver()
         clearCommandBeforeCalibrateMagneticOfUavFilter = IntentFilter()
         clearCommandBeforeCalibrateMagneticOfUavFilter.addAction(Tool.CLEARCOMMANDBEFORECALIBRATEMAGNETICOFUAV_ACTION)
-        registerReceiver(self.clearCommandBeforeCalibrateMagneticOfUavReceiver, clearCommandBeforeCalibrateMagneticOfUavFilter)
+        registerReceiver(self.clearCommandBeforeCalibrateMagneticOfUavReceiver,
+                         clearCommandBeforeCalibrateMagneticOfUavFilter)
         moniteSocketForReceiveService = self
         self.clearCommandBeforeCalibrateSensorOfModuleReceiver = self.ClearCommandBeforeCalibrateSensorOfModuleReceiver()
         clearCommandBeforeCalibrateSensorOfModuleFilter = IntentFilter()
         clearCommandBeforeCalibrateSensorOfModuleFilter.addAction(Tool.CLEARCOMMANDBEFORECALIBRATESENSOROFMODULE_ACTION)
-        registerReceiver(self.clearCommandBeforeCalibrateSensorOfModuleReceiver, clearCommandBeforeCalibrateSensorOfModuleFilter)
+        registerReceiver(self.clearCommandBeforeCalibrateSensorOfModuleReceiver,
+                         clearCommandBeforeCalibrateSensorOfModuleFilter)
         moniteSocketForReceiveService = self
         self.clearCommandBeforeCalibrateMagneticOfModuleReceiver = self.ClearCommandBeforeCalibrateMagneticOfModuleReceiver()
         clearCommandBeforeCalibrateMagneticOfModuleFilter = IntentFilter()
-        clearCommandBeforeCalibrateMagneticOfModuleFilter.addAction(Tool.CLEARCOMMANDBEFORECALIBRATEMAGNETICOFMODULE_ACTION)
-        registerReceiver(self.clearCommandBeforeCalibrateMagneticOfModuleReceiver, clearCommandBeforeCalibrateMagneticOfModuleFilter)
+        clearCommandBeforeCalibrateMagneticOfModuleFilter.addAction(
+            Tool.CLEARCOMMANDBEFORECALIBRATEMAGNETICOFMODULE_ACTION)
+        registerReceiver(self.clearCommandBeforeCalibrateMagneticOfModuleReceiver,
+                         clearCommandBeforeCalibrateMagneticOfModuleFilter)
         moniteSocketForReceiveService = self
         self.clearCommandBeforeCalibrateGimbalReceiver = self.ClearCommandBeforeCalibrateGimbalReceiver()
         clearCommandBeforeCalibrateGimbalFilter = IntentFilter()
@@ -949,7 +1074,8 @@ class MoniteSocketForReceiveService(Service):
         self.clearCommandBeforeCalibrateStickNeutralReceiver = self.ClearCommandBeforeCalibrateStickNeutralReceiver()
         clearCommandBeforeCalibrateStickNeutralFilter = IntentFilter()
         clearCommandBeforeCalibrateStickNeutralFilter.addAction(Tool.CLEARCOMMANDBEFORECALIBRATESTICKNEUTRAL_ACTION)
-        registerReceiver(self.clearCommandBeforeCalibrateStickNeutralReceiver, clearCommandBeforeCalibrateStickNeutralFilter)
+        registerReceiver(self.clearCommandBeforeCalibrateStickNeutralReceiver,
+                         clearCommandBeforeCalibrateStickNeutralFilter)
         moniteSocketForReceiveService = self
         self.disconnectBluetoothReceiver = self.DisconnectBluetoothReceiver()
         disconnectBluetoothFilter = IntentFilter()
@@ -1073,7 +1199,9 @@ class MoniteSocketForReceiveService(Service):
             self.subframeByteSend = self.vlcApplication.getSubframeByte()
             if self.subframeByteSend == checkPacketBytes[36]:
                 self.parsereceiveCount += 1
-                if not (checkPacketBytes[36] == int(-48) or checkPacketBytes[36] == int(-47) or checkPacketBytes[36] == int(-46) or checkPacketBytes[36] == int(-45) or checkPacketBytes[36] == int(-44) or checkPacketBytes[36] == int(-38) or checkPacketBytes[36] == int(-37)):
+                if not (checkPacketBytes[36] == int(-48) or checkPacketBytes[36] == int(-47) or checkPacketBytes[
+                    36] == int(-46) or checkPacketBytes[36] == int(-45) or checkPacketBytes[36] == int(-44) or
+                        checkPacketBytes[36] == int(-38) or checkPacketBytes[36] == int(-37)):
                     self.vlcApplication.setSubframeFlag(0)
                     self.vlcApplication.setReceivedSubframeByte(checkPacketBytes[36])
                 parsePacketData(checkPacketBytes)
@@ -1467,7 +1595,8 @@ class MoniteSocketForReceiveService(Service):
             sendBroadcast(self.followIntent)
             self.uploadedWaypointBundle.putInt("uploadedwaypointmodel", 7)
             self.uploadedWaypointBundle.putInt("resultforupload", 1)
-            self.uploadedWaypointBundle.putParcelableArrayList("uploadwaypointparameter", self.multiPointWaypointParameterUploadedList)
+            self.uploadedWaypointBundle.putParcelableArrayList("uploadwaypointparameter",
+                                                               self.multiPointWaypointParameterUploadedList)
             self.uploadedWaypointIntent.putExtras(self.uploadedWaypointBundle)
             self.uploadedWaypointIntent.setAction(Tool.UPLOADEDALLWAYPOINTS_ACTION)
             sendBroadcast(self.uploadedWaypointIntent)
@@ -1495,7 +1624,8 @@ class MoniteSocketForReceiveService(Service):
             sendBroadcast(self.followIntent)
             self.uploadedWaypointBundle.putInt("uploadedwaypointmodel", 5)
             self.uploadedWaypointBundle.putInt("resultforupload", 1)
-            self.uploadedWaypointBundle.putParcelable("uploadwaypointparameter", self.signalCircleWaypointParameterUploaded)
+            self.uploadedWaypointBundle.putParcelable("uploadwaypointparameter",
+                                                      self.signalCircleWaypointParameterUploaded)
             self.uploadedWaypointIntent.putExtras(self.uploadedWaypointBundle)
             self.uploadedWaypointIntent.setAction(Tool.UPLOADEDALLWAYPOINTS_ACTION)
             sendBroadcast(self.uploadedWaypointIntent)
@@ -1586,7 +1716,8 @@ class MoniteSocketForReceiveService(Service):
             sendBroadcast(self.followIntent)
             self.uploadedWaypointBundle.putInt("uploadedwaypointmodel", 4)
             self.uploadedWaypointBundle.putInt("resultforupload", 1)
-            self.uploadedWaypointBundle.putParcelableArrayList("uploadwaypointparameter", self.trackWaypointParameterUploadedList)
+            self.uploadedWaypointBundle.putParcelableArrayList("uploadwaypointparameter",
+                                                               self.trackWaypointParameterUploadedList)
             self.uploadedWaypointIntent.putExtras(self.uploadedWaypointBundle)
             self.uploadedWaypointIntent.setAction(Tool.UPLOADEDALLWAYPOINTS_ACTION)
             sendBroadcast(self.uploadedWaypointIntent)
@@ -1624,28 +1755,37 @@ class MoniteSocketForReceiveService(Service):
         """ generated source for method parsePacketData """
         self.parseCommand(parsePacketBytes[4])
         if self.isBreakUploadWaypointReceived:
-            if self.breakTypeStr != None and (parsePacketBytes[36] == int(80) or parsePacketBytes[36] == int(81) or parsePacketBytes[36] == int(82) or parsePacketBytes[36] == int(83) or parsePacketBytes[36] == int(84)):
+            if self.breakTypeStr != None and (
+                    parsePacketBytes[36] == int(80) or parsePacketBytes[36] == int(81) or parsePacketBytes[36] == int(
+                    82) or parsePacketBytes[36] == int(83) or parsePacketBytes[36] == int(84)):
                 resetSubframeIntent = Intent()
                 if self.breakTypeStr == "downloadflightcontroldata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADFLIGHTCONTROLDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADFLIGHTCONTROLDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloadmoduledata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULEDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULEDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloadbatterydata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBATTERYDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBATTERYDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloaduavsensordata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADUAVSENSORDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADUAVSENSORDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloadmodulesensordata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULESENSORDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADMODULESENSORDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloadbarometerdata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBAROMETERDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADBAROMETERDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
                 if self.breakTypeStr == "downloadgimbaldata":
-                    resetSubframeIntent.setAction(Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADGIMBALDATA_ACTION)
+                    resetSubframeIntent.setAction(
+                        Tool.RESETSUBFRAMEAFTERBREAKUPLOADWAYPOINTFORDOWNLOADGIMBALDATA_ACTION)
                     sendBroadcast(resetSubframeIntent)
             self.isBreakUploadWaypointReceived = False
         if parsePacketBytes[4] == int(0):
@@ -1693,10 +1833,14 @@ class MoniteSocketForReceiveService(Service):
         self.satelliteIntent.putExtras(self.satelliteBundle)
         self.satelliteIntent.setAction(Tool.SATELLITEAMOUNTANDAVAILABLE)
         sendBroadcast(self.satelliteIntent)
-        self.uavLngInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[6], parsePacketBytes[7], parsePacketBytes[8], parsePacketBytes[9]]))
+        print([parsePacketBytes[6], parsePacketBytes[7], parsePacketBytes[8], parsePacketBytes[9]])
+        self.uavLngInt = Tool.byteArrayToInt_ZSY(
+            bytearray([parsePacketBytes[6], parsePacketBytes[7], parsePacketBytes[8], parsePacketBytes[9]]))
         self.uavLng = (float(self.uavLngInt)) / 1.0E7
         self.uavInformation.longitude = self.uavLng
-        self.uavLatInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[10], parsePacketBytes[11], parsePacketBytes[12], parsePacketBytes[13]]))
+        print([parsePacketBytes[10], parsePacketBytes[11], parsePacketBytes[12], parsePacketBytes[13]])
+        self.uavLatInt = Tool.byteArrayToInt_ZSY(
+            bytearray([parsePacketBytes[10], parsePacketBytes[11], parsePacketBytes[12], parsePacketBytes[13]]))
         self.uavLat = (float(self.uavLatInt)) / 1.0E7
         self.uavInformation.latitude = self.uavLat
         self.uavBundle.putDouble("uavlat", self.uavLat)
@@ -1704,7 +1848,8 @@ class MoniteSocketForReceiveService(Service):
         self.uavIntent.putExtras(self.uavBundle)
         self.uavIntent.setAction(Tool.PLANELATLNG_ACTION)
         sendBroadcast(self.uavIntent)
-        self.uavAltInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[14], parsePacketBytes[15], parsePacketBytes[16], parsePacketBytes[17]]))
+        self.uavAltInt = Tool.byteArrayToInt_ZSY(
+            bytearray([parsePacketBytes[14], parsePacketBytes[15], parsePacketBytes[16], parsePacketBytes[17]]))
         self.altitudeDouble = (float(self.uavAltInt)) / 1000.0
         self.uavInformation.altitude = self.altitudeDouble
         self.uavAlt = self.altitudeDouble
@@ -1715,7 +1860,8 @@ class MoniteSocketForReceiveService(Service):
         self.uavInformation.ve = (float(self.uavVeShort)) / 100.0
         self.uavVuShort = Tool.getShortFromBytes(bytearray([parsePacketBytes[22], parsePacketBytes[23]]))
         self.uavInformation.vu = (float(self.uavVuShort)) / 100.0
-        self.uavSpeed = sqrt((((float(self.uavVnShort)) / 100.0) * ((float(self.uavVnShort)) / 100.0)) + (((float(self.uavVeShort)) / 100.0) * ((float(self.uavVeShort)) / 100.0)))
+        self.uavSpeed = sqrt((((float(self.uavVnShort)) / 100.0) * ((float(self.uavVnShort)) / 100.0)) + (
+                ((float(self.uavVeShort)) / 100.0) * ((float(self.uavVeShort)) / 100.0)))
         self.dataForShowBundle.putDouble("uavhorizontalspeed", self.uavSpeed)
         self.dataForShowBundle.putDouble("uavverticalspeed", (float(self.uavVuShort)) / 100.0)
         rollBytes = bytearray([parsePacketBytes[28], parsePacketBytes[29]])
@@ -1738,7 +1884,8 @@ class MoniteSocketForReceiveService(Service):
         if self.digitalTransferByte != int(0):
             if self.isFirstConnectDrone:
                 self.isFirstConnectDrone = False
-                ceewaFile = File(StringBuilder(str(Environment.getExternalStorageDirectory().getPath())).append("/TAROT").__str__())
+                ceewaFile = File(
+                    StringBuilder(str(Environment.getExternalStorageDirectory().getPath())).append("/TAROT").__str__())
                 if not ceewaFile.exists():
                     ceewaFile.mkdir()
                 elif not ceewaFile.isDirectory():
@@ -1848,10 +1995,14 @@ class MoniteSocketForReceiveService(Service):
             stickIntent.setAction(Tool.CALIBRATESTICKDATA_ACTION)
             sendBroadcast(stickIntent)
         elif self.subframeByte == int(-62):
-            self.gyroscopeValueForUav_X = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
-            self.gyroscopeValueForUav_Y = Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
-            self.gyroscopeValueForUav_Z = Tool.getShortFromBytes(bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
-            self.accelerateValueForUav_X = Tool.getShortFromBytes(bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
+            self.gyroscopeValueForUav_X = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.gyroscopeValueForUav_Y = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
+            self.gyroscopeValueForUav_Z = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
+            self.accelerateValueForUav_X = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
             self.gyroscopeForUavBundle.putShort("gyroscopeforuavx", self.gyroscopeValueForUav_X)
             self.gyroscopeForUavBundle.putShort("gyroscopeforuavy", self.gyroscopeValueForUav_Y)
             self.gyroscopeForUavBundle.putShort("gyroscopeforuavz", self.gyroscopeValueForUav_Z)
@@ -1859,8 +2010,10 @@ class MoniteSocketForReceiveService(Service):
             self.gyroscopeForUavIntent.setAction(Tool.GYROSCOPSEVALUEFORUAV_ACTION)
             sendBroadcast(self.gyroscopeForUavIntent)
         elif self.subframeByte == int(-61):
-            self.accelerateValueForUav_Y = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
-            self.accelerateValueForUav_Z = Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
+            self.accelerateValueForUav_Y = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.accelerateValueForUav_Z = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
             self.accelerateForUavBundle.putShort("accelerateforuavx", self.accelerateValueForUav_X)
             self.accelerateForUavBundle.putShort("accelerateforuavy", self.accelerateValueForUav_Y)
             self.accelerateForUavBundle.putShort("accelerateforuavz", self.accelerateValueForUav_Z)
@@ -1892,8 +2045,10 @@ class MoniteSocketForReceiveService(Service):
             self.timeChargeShort = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
             self.batteryLifeByte = parsePacketBytes[39]
             self.temperatureByte = parsePacketBytes[40]
-            self.voltageForBatteryOneShort = Tool.getShortFromBytes(bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
-            self.voltageForBatteryTwoShort = Tool.getShortFromBytes(bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
+            self.voltageForBatteryOneShort = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
+            self.voltageForBatteryTwoShort = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
             self.subframeIndex = 2
             self.batteryBundle.putInt("subframeindex", self.subframeIndex)
             self.batteryBundle.putShort("timecharge", self.timeChargeShort)
@@ -1905,7 +2060,8 @@ class MoniteSocketForReceiveService(Service):
             self.batteryIntent.setAction(Tool.BATTERYINFO_ACTION)
             sendBroadcast(self.batteryIntent)
         elif self.subframeByte == int(-58):
-            self.voltageForBatteryThreeShort = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.voltageForBatteryThreeShort = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
             self.subframeIndex = 3
             self.batteryBundle.putInt("subframeindex", self.subframeIndex)
             self.batteryBundle.putShort("voltageforbatterythree", self.voltageForBatteryThreeShort)
@@ -1948,7 +2104,8 @@ class MoniteSocketForReceiveService(Service):
                 self.flightMode = int(9)
             elif self.uavInformation.flight_mode == int(4) and self.uavInformation.cruise_sub_mode == int(5):
                 self.flightMode = int(10)
-            elif self.uavInformation.flight_mode == int(3) and self.uavInformation.gimbal_control_mode != int(2) and self.uavInformation.gps_hold_heading_mode != int(1):
+            elif self.uavInformation.flight_mode == int(3) and self.uavInformation.gimbal_control_mode != int(
+                    2) and self.uavInformation.gps_hold_heading_mode != int(1):
                 self.flightMode = int(11)
             elif self.uavInformation.flight_mode == int(4) and self.uavInformation.cruise_sub_mode == int(3):
                 self.flightMode = int(12)
@@ -2024,9 +2181,11 @@ class MoniteSocketForReceiveService(Service):
             self.moduleIntent.setAction(Tool.SENDMODULEDATA_ACTION)
             sendBroadcast(self.moduleIntent)
         elif self.subframeByte == int(-55):
-            self.homeLngInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]]))
+            self.homeLngInt = Tool.byteArrayToInt_ZSY(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]]))
             self.uavInformation.home_longitude = (float(self.homeLngInt)) / 1.0E7
-            self.homeLatInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
+            self.homeLatInt = Tool.byteArrayToInt_ZSY(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
             self.uavInformation.home_latitude = (float(self.homeLatInt)) / 1.0E7
             self.homeBundle.putByte("homevalid", self.homeValidByte)
             self.homeBundle.putDouble("homelng", (float(self.homeLngInt)) / 1.0E7)
@@ -2037,10 +2196,12 @@ class MoniteSocketForReceiveService(Service):
             self.homeIntent.setAction(Tool.SENDHOMELATLNG_ACTION)
             sendBroadcast(self.homeIntent)
         elif self.subframeByte == int(-54):
-            homeAltBytes = bytearray([parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]])
+            homeAltBytes = bytearray(
+                [parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]])
             self.homeAltInt = Tool.byteArrayToInt_ZSY(homeAltBytes)
             self.uavInformation.home_altitude = (float(self.homeAltInt)) / 1000.0
-            self.moduleAltInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
+            self.moduleAltInt = Tool.byteArrayToInt_ZSY(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
             self.moduleAltDouble = (float(self.moduleAltInt)) / 1000.0
             self.homeBundle.putByte("homevalid", self.homeValidByte)
             self.homeBundle.putDouble("homelng", (float(self.homeLngInt)) / 1.0E7)
@@ -2061,9 +2222,11 @@ class MoniteSocketForReceiveService(Service):
             self.barometerIntent.setAction(Tool.BAROMETERVALUE_ACTION)
             sendBroadcast(self.barometerIntent)
         elif self.subframeByte == int(-53):
-            self.moduleLngInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]]))
+            self.moduleLngInt = Tool.byteArrayToInt_ZSY(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38], parsePacketBytes[39], parsePacketBytes[40]]))
             self.moduleLngDouble = (float(self.moduleLngInt)) / 1.0E7
-            self.moduleLatInt = Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
+            self.moduleLatInt = Tool.byteArrayToInt_ZSY(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]]))
             self.moduleLatDouble = (float(self.moduleLatInt)) / 1.0E7
             self.moduleBundle.putByte("subframeindex", int(2))
             self.moduleBundle.putDouble("modulelng", self.moduleLngDouble)
@@ -2092,10 +2255,14 @@ class MoniteSocketForReceiveService(Service):
             self.versionIntent.setAction(Tool.GETVERSIONVALUES_ACTION)
             sendBroadcast(self.versionIntent)
         elif self.subframeByte == int(-51):
-            self.gyroscopeValueForModule_X = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
-            self.gyroscopeValueForModule_Y = Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
-            self.gyroscopeValueForModule_Z = Tool.getShortFromBytes(bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
-            self.accelerateValueForModule_X = Tool.getShortFromBytes(bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
+            self.gyroscopeValueForModule_X = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.gyroscopeValueForModule_Y = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
+            self.gyroscopeValueForModule_Z = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
+            self.accelerateValueForModule_X = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[43], parsePacketBytes[44]]))
             self.gyroscopeForModuleBundle.putShort("gyroscopeformodulex", self.gyroscopeValueForModule_X)
             self.gyroscopeForModuleBundle.putShort("gyroscopeformoduley", self.gyroscopeValueForModule_Y)
             self.gyroscopeForModuleBundle.putShort("gyroscopeformodulez", self.gyroscopeValueForModule_Z)
@@ -2103,8 +2270,10 @@ class MoniteSocketForReceiveService(Service):
             self.gyroscopeForModuleIntent.setAction(Tool.GYROSCOPSEVALUEFORMODULE_ACTION)
             sendBroadcast(self.gyroscopeForModuleIntent)
         elif self.subframeByte == int(-50):
-            self.accelerateValueForModule_Y = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
-            self.accelerateValueForModule_Z = Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
+            self.accelerateValueForModule_Y = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.accelerateValueForModule_Z = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
             self.accelerateForModuleBundle.putShort("accelerateformodulex", self.accelerateValueForModule_X)
             self.accelerateForModuleBundle.putShort("accelerateformoduley", self.accelerateValueForModule_Y)
             self.accelerateForModuleBundle.putShort("accelerateformodulez", self.accelerateValueForModule_Z)
@@ -2112,9 +2281,12 @@ class MoniteSocketForReceiveService(Service):
             self.accelerateForModuleIntent.setAction(Tool.ACCELERATEVALUEFORMODULE_ACTION)
             sendBroadcast(self.accelerateForModuleIntent)
         elif self.subframeByte == int(-49):
-            self.magneticValueForModule_X = Tool.getShortFromBytes(bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
-            self.magneticValueForModule_Y = Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
-            self.magneticValueForModule_Z = Tool.getShortFromBytes(bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
+            self.magneticValueForModule_X = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[37], parsePacketBytes[38]]))
+            self.magneticValueForModule_Y = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[39], parsePacketBytes[40]]))
+            self.magneticValueForModule_Z = Tool.getShortFromBytes(
+                bytearray([parsePacketBytes[41], parsePacketBytes[42]]))
             self.magneticForModuleBundle.putShort("magneticformodulex", self.magneticValueForModule_X)
             self.magneticForModuleBundle.putShort("magneticformoduley", self.magneticValueForModule_Y)
             self.magneticForModuleBundle.putShort("magneticformodulez", self.magneticValueForModule_Z)
@@ -2146,7 +2318,8 @@ class MoniteSocketForReceiveService(Service):
                 self.waypointParameterLngBytesForDownload[2] = parsePacketBytes[42]
                 self.waypointParameterLngBytesForDownload[1] = parsePacketBytes[43]
                 self.waypointParameterLngBytesForDownload[0] = parsePacketBytes[44]
-                self.waypointParameterLngForDownload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForDownload))) / 1000.0
+                self.waypointParameterLngForDownload = (float(
+                    Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForDownload))) / 1000.0
                 self.waypointParameterForDownload.longitude = self.waypointParameterLngForDownload
                 self.subframeHeadByteReceived = int(-47)
             self.subframeHeadByteReceivedBundle.putByte("subframe", self.subframeHeadByteReceived)
@@ -2167,13 +2340,16 @@ class MoniteSocketForReceiveService(Service):
             self.waypointParameterForDownload.currentIndex = parsePacketBytes[38]
             self.waypointParameterVelocityBytesForDownload[0] = parsePacketBytes[39]
             self.waypointParameterVelocityBytesForDownload[1] = parsePacketBytes[40]
-            self.waypointParameterVelocityForDownload = Tool.getShortFromBytes(self.waypointParameterVelocityBytesForDownload)
-            self.waypointParameterForDownload.velocity = int((int(((float(self.waypointParameterVelocityForDownload)) / 10.0))))
+            self.waypointParameterVelocityForDownload = Tool.getShortFromBytes(
+                self.waypointParameterVelocityBytesForDownload)
+            self.waypointParameterForDownload.velocity = int(
+                (int(((float(self.waypointParameterVelocityForDownload)) / 10.0))))
             self.waypointParameterLatBytesForDownload[3] = parsePacketBytes[41]
             self.waypointParameterLatBytesForDownload[2] = parsePacketBytes[42]
             self.waypointParameterLatBytesForDownload[1] = parsePacketBytes[43]
             self.waypointParameterLatBytesForDownload[0] = parsePacketBytes[44]
-            self.waypointParameterLatForDownload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForDownload))) / 1000.0
+            self.waypointParameterLatForDownload = (float(
+                Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForDownload))) / 1000.0
             self.waypointParameterForDownload.latitude = self.waypointParameterLatForDownload
             self.subframeHeadByteReceived = int(-46)
             self.subframeHeadByteReceivedBundle.putByte("subframe", self.subframeHeadByteReceived)
@@ -2196,11 +2372,13 @@ class MoniteSocketForReceiveService(Service):
             self.waypointParameterAltBytesForDownload[2] = parsePacketBytes[40]
             self.waypointParameterAltBytesForDownload[1] = parsePacketBytes[41]
             self.waypointParameterAltBytesForDownload[0] = parsePacketBytes[42]
-            self.waypointParameterAltForDownload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForDownload))) / 1000.0
+            self.waypointParameterAltForDownload = (float(
+                Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForDownload))) / 1000.0
             self.waypointParameterForDownload.altitude = self.waypointParameterAltForDownload
             self.waypointParameterHeadingBytesForDownload[0] = parsePacketBytes[43]
             self.waypointParameterHeadingBytesForDownload[1] = parsePacketBytes[44]
-            self.waypointParameterHeadingForDownload = Tool.getShortFromBytes(self.waypointParameterHeadingBytesForDownload)
+            self.waypointParameterHeadingForDownload = Tool.getShortFromBytes(
+                self.waypointParameterHeadingBytesForDownload)
             self.waypointParameterForDownload.heading = self.waypointParameterHeadingForDownload
             self.subframeHeadByteReceived = int(-45)
             self.subframeHeadByteReceivedBundle.putByte("subframe", self.subframeHeadByteReceived)
@@ -2221,15 +2399,18 @@ class MoniteSocketForReceiveService(Service):
             self.waypointParameterForDownload.currentIndex = parsePacketBytes[38]
             self.waypointParameterDistanceBytesForDownload[0] = parsePacketBytes[39]
             self.waypointParameterDistanceBytesForDownload[1] = parsePacketBytes[40]
-            self.waypointParameterDistanceForDownload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForDownload)
+            self.waypointParameterDistanceForDownload = Tool.getShortFromBytes(
+                self.waypointParameterDistanceBytesForDownload)
             self.waypointParameterForDownload.distance = self.waypointParameterDistanceForDownload
             self.waypointParametervCircleBytesForDownload[0] = parsePacketBytes[41]
             self.waypointParametervCircleBytesForDownload[1] = parsePacketBytes[42]
-            self.waypointParametervCircleForDownload = Tool.getShortFromBytes(self.waypointParametervCircleBytesForDownload)
+            self.waypointParametervCircleForDownload = Tool.getShortFromBytes(
+                self.waypointParametervCircleBytesForDownload)
             self.waypointParameterForDownload.vCircle = self.waypointParametervCircleForDownload
             self.waypointParameterClimbRateBytesForDownload[0] = parsePacketBytes[43]
             self.waypointParameterClimbRateBytesForDownload[1] = parsePacketBytes[44]
-            self.waypointParameterClimbRateForDownload = Tool.getShortFromBytes(self.waypointParameterClimbRateBytesForDownload)
+            self.waypointParameterClimbRateForDownload = Tool.getShortFromBytes(
+                self.waypointParameterClimbRateBytesForDownload)
             self.waypointParameterForDownload.climbRate = self.waypointParameterClimbRateForDownload
             self.subframeHeadByteReceived = int(-44)
             self.subframeHeadByteReceivedBundle.putByte("subframe", self.subframeHeadByteReceived)
@@ -2250,11 +2431,13 @@ class MoniteSocketForReceiveService(Service):
             self.waypointParameterForDownload.currentIndex = parsePacketBytes[38]
             self.waypointParameterRadiusBytesForDownload[0] = parsePacketBytes[39]
             self.waypointParameterRadiusBytesForDownload[1] = parsePacketBytes[40]
-            self.waypointParameterRadiusForDownload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForDownload)
+            self.waypointParameterRadiusForDownload = Tool.getShortFromBytes(
+                self.waypointParameterRadiusBytesForDownload)
             self.waypointParameterForDownload.radius = self.waypointParameterRadiusForDownload
             self.waypointParameterDurationBytesForDownload[0] = parsePacketBytes[41]
             self.waypointParameterDurationBytesForDownload[1] = parsePacketBytes[42]
-            self.waypointParameterDurationForDownload = Tool.getShortFromBytes(self.waypointParameterDurationBytesForDownload)
+            self.waypointParameterDurationForDownload = Tool.getShortFromBytes(
+                self.waypointParameterDurationBytesForDownload)
             self.waypointParameterForDownload.duration = self.waypointParameterDurationForDownload
             self.waypointParameterForDownload.mode = parsePacketBytes[43]
             self.downloadingSubframeByteBundle = Bundle()
@@ -2266,7 +2449,8 @@ class MoniteSocketForReceiveService(Service):
             sendBroadcast(self.downloadingSubframeByteIntent)
             self.downloadingSubframeByteBundle = None
             self.downloadingSubframeByteIntent = None
-            self.sharedPreferencesForShowFlightFollow = getSharedPreferences(Tool.SHAREDPREFERENCESFORSHOWFLIGHTFOLLOW, 0)
+            self.sharedPreferencesForShowFlightFollow = getSharedPreferences(Tool.SHAREDPREFERENCESFORSHOWFLIGHTFOLLOW,
+                                                                             0)
             self.editorForShowFlightFollow = self.sharedPreferencesForShowFlightFollow.edit()
             if self.downloadingWaypointTypeIndex == 0:
                 self.cacheForRelativePositionFollow.setLatitude(self.waypointParameterForDownload.latitude)
@@ -2275,7 +2459,8 @@ class MoniteSocketForReceiveService(Service):
                 self.vlcApplication.setCacheDataForRelativePosition(self.cacheForRelativePositionFollow)
                 self.editorForShowFlightFollow.putBoolean(Tool.ISFIRSTSHOWRELATIVEPOSITIONFOLLOW, False)
                 self.downloadedWaypointBundle.putInt("downloadedwaypointmodel", 0)
-                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue", self.waypointParameterForDownload)
+                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue",
+                                                            self.waypointParameterForDownload)
                 self.downloadedWaypointIntent.setAction(Tool.DOWNLOADEDALLWAYPOINTS_ACTION)
                 self.downloadedWaypointIntent.putExtras(self.downloadedWaypointBundle)
                 sendBroadcast(self.downloadedWaypointIntent)
@@ -2286,7 +2471,8 @@ class MoniteSocketForReceiveService(Service):
                 self.vlcApplication.setCacheDataForAuto(self.cacheForAutoFollow)
                 self.editorForShowFlightFollow.putBoolean(Tool.ISFIRSTSHOWAUTOFOLLOW, False)
                 self.downloadedWaypointBundle.putInt("downloadedwaypointmodel", 1)
-                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue", self.waypointParameterForDownload)
+                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue",
+                                                            self.waypointParameterForDownload)
                 self.downloadedWaypointIntent.setAction(Tool.DOWNLOADEDALLWAYPOINTS_ACTION)
                 self.downloadedWaypointIntent.putExtras(self.downloadedWaypointBundle)
                 sendBroadcast(self.downloadedWaypointIntent)
@@ -2297,7 +2483,8 @@ class MoniteSocketForReceiveService(Service):
                 self.vlcApplication.setCacheDataForCircle(self.cacheForCircleFollow)
                 self.editorForShowFlightFollow.putBoolean(Tool.ISFIRSTSHOWCIRCLEFOLLOW, False)
                 self.downloadedWaypointBundle.putInt("downloadedwaypointmodel", 2)
-                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue", self.waypointParameterForDownload)
+                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalue",
+                                                            self.waypointParameterForDownload)
                 self.downloadedWaypointIntent.setAction(Tool.DOWNLOADEDALLWAYPOINTS_ACTION)
                 self.downloadedWaypointIntent.putExtras(self.downloadedWaypointBundle)
                 sendBroadcast(self.downloadedWaypointIntent)
@@ -2308,7 +2495,8 @@ class MoniteSocketForReceiveService(Service):
                 self.vlcApplication.setCacheDataForSelfie(self.cacheForSelfie)
                 self.editorForShowFlightFollow.putBoolean(Tool.ISFIRSTSHOWSELFIEFOLLOW, False)
                 self.downloadedWaypointBundle.putInt("downloadedwaypointmodel", 3)
-                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalueforselfie", self.waypointParameterForDownload)
+                self.downloadedWaypointBundle.putParcelable("downloadedwaypointvalueforselfie",
+                                                            self.waypointParameterForDownload)
                 self.downloadedWaypointIntent.setAction(Tool.DOWNLOADEDALLWAYPOINTS_ACTION)
                 self.downloadedWaypointIntent.putExtras(self.downloadedWaypointBundle)
                 sendBroadcast(self.downloadedWaypointIntent)
@@ -2320,7 +2508,9 @@ class MoniteSocketForReceiveService(Service):
             self.settingIntent.setAction(Tool.SETSTICKMODELSUCCESS_ACTION)
             sendBroadcast(self.settingIntent)
         elif self.subframeByte == int(10):
-            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
+            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or \
+                    parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(
+                    0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
                 if not self.isResetAllParamsValueReceived:
                     paramIntent = Intent()
                     paramIntent.setAction(Tool.UPLOADFLIGHTPARAMSOK_ACTION)
@@ -2329,7 +2519,9 @@ class MoniteSocketForReceiveService(Service):
             paramIntent.setAction(Tool.UPLOADFLIGHTPARAMSFAIL_ACTION)
             sendBroadcast(paramIntent)
         elif self.subframeByte == int(17):
-            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
+            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or \
+                    parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(
+                    0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
                 if not self.isResetAllParamsValueReceived:
                     paramIntent = Intent()
                     paramIntent.setAction(Tool.UPLOADFLIGHTPARAMSOK_ACTION)
@@ -2338,7 +2530,9 @@ class MoniteSocketForReceiveService(Service):
             paramIntent.setAction(Tool.UPLOADFLIGHTPARAMSFAIL_ACTION)
             sendBroadcast(paramIntent)
         elif self.subframeByte == int(21):
-            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
+            if parsePacketBytes[37] != int(0) or parsePacketBytes[38] != int(0) or parsePacketBytes[39] != int(0) or \
+                    parsePacketBytes[40] != int(0) or parsePacketBytes[41] != int(0) or parsePacketBytes[42] != int(
+                    0) or parsePacketBytes[43] != int(0) or parsePacketBytes[44] != int(0):
                 if self.isResetAllParamsValueReceived:
                     if self.positionOfUploadParams == 1:
                         self.isResetAllParamsValueReceived = False
@@ -2367,7 +2561,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
                     self.relativePositionFollowWaypointParameterForUpload.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 1:
                     self.autoFollowWaypointParameterForUpload = WayPointParameter()
@@ -2375,7 +2570,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
                     self.autoFollowWaypointParameterForUpload.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 2:
                     self.circleFollowWaypointParameterForUpload = WayPointParameter()
@@ -2383,7 +2579,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
                     self.circleFollowWaypointParameterForUpload.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 3:
                     self.selfieWaypointParameterForUpload = WayPointParameter()
@@ -2391,7 +2588,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1000.0
                     self.selfieWaypointParameterForUpload.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 5:
                     self.signalCircleWaypointParameterUploaded = WayPointParameter()
@@ -2403,7 +2601,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
                     self.signalCircleWaypointParameterUploaded.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 6:
                     self.toPointWaypointParameterUploaded = WayPointParameter()
@@ -2415,7 +2614,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
                     self.toPointWaypointParameterUploaded.longitude = self.waypointParameterLngForUpload
                 if self.uploadingWaypointTypeIndex == 7:
                     self.uploadingSubframeByteBundle.putByte("number", parsePacketBytes[37])
@@ -2434,7 +2634,8 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterLngBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLngBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLngBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLngForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
+                    self.waypointParameterLngForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLngBytesForUpload))) / 1.0E7
                     self.multiPointWaypointParameterUploaded.longitude = self.waypointParameterLngForUpload
                 self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
                 self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(80))
@@ -2448,72 +2649,84 @@ class MoniteSocketForReceiveService(Service):
                 if self.uploadingWaypointTypeIndex == 0:
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload)
+                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterVelocityBytesForUpload)
                     self.relativePositionFollowWaypointParameterForUpload.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
                     self.relativePositionFollowWaypointParameterForUpload.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 1:
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload)
+                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterVelocityBytesForUpload)
                     self.autoFollowWaypointParameterForUpload.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
                     self.autoFollowWaypointParameterForUpload.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 2:
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload)
+                    self.waypointParameterVelocityForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterVelocityBytesForUpload)
                     self.circleFollowWaypointParameterForUpload.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
                     self.circleFollowWaypointParameterForUpload.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 3:
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
+                    self.waypointParameterVelocityForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
                     self.selfieWaypointParameterForUpload.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1000.0
                     self.selfieWaypointParameterForUpload.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 5:
                     self.signalCircleWaypointParameterUploaded.number = parsePacketBytes[37]
                     self.signalCircleWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
+                    self.waypointParameterVelocityForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
                     self.signalCircleWaypointParameterUploaded.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
                     self.signalCircleWaypointParameterUploaded.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 6:
                     self.toPointWaypointParameterUploaded.number = parsePacketBytes[37]
                     self.toPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
+                    self.waypointParameterVelocityForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
                     self.toPointWaypointParameterUploaded.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
                     self.toPointWaypointParameterUploaded.latitude = self.waypointParameterLatForUpload
                 if self.uploadingWaypointTypeIndex == 7:
                     self.uploadingSubframeByteBundle.putByte("number", parsePacketBytes[37])
@@ -2522,13 +2735,15 @@ class MoniteSocketForReceiveService(Service):
                     self.multiPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterVelocityBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterVelocityBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterVelocityForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
+                    self.waypointParameterVelocityForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParameterVelocityBytesForUpload))) / 10.0))))
                     self.multiPointWaypointParameterUploaded.velocity = self.waypointParameterVelocityForUpload
                     self.waypointParameterLatBytesForUpload[3] = parsePacketBytes[41]
                     self.waypointParameterLatBytesForUpload[2] = parsePacketBytes[42]
                     self.waypointParameterLatBytesForUpload[1] = parsePacketBytes[43]
                     self.waypointParameterLatBytesForUpload[0] = parsePacketBytes[44]
-                    self.waypointParameterLatForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
+                    self.waypointParameterLatForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterLatBytesForUpload))) / 1.0E7
                     self.multiPointWaypointParameterUploaded.latitude = self.waypointParameterLatForUpload
                 self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
                 self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(81))
@@ -2544,28 +2759,32 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.relativePositionFollowWaypointParameterForUpload.altitude = self.waypointParameterAltForUpload
                 if self.uploadingWaypointTypeIndex == 1:
                     self.waypointParameterAltBytesForUpload[3] = parsePacketBytes[39]
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.autoFollowWaypointParameterForUpload.altitude = self.waypointParameterAltForUpload
                 if self.uploadingWaypointTypeIndex == 2:
                     self.waypointParameterAltBytesForUpload[3] = parsePacketBytes[39]
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.circleFollowWaypointParameterForUpload.altitude = self.waypointParameterAltForUpload
                 if self.uploadingWaypointTypeIndex == 3:
                     self.waypointParameterAltBytesForUpload[3] = parsePacketBytes[39]
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.selfieWaypointParameterForUpload.altitude = self.waypointParameterAltForUpload
                 if self.uploadingWaypointTypeIndex == 5:
                     self.signalCircleWaypointParameterUploaded.number = parsePacketBytes[37]
@@ -2574,11 +2793,13 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.signalCircleWaypointParameterUploaded.altitude = self.waypointParameterAltForUpload
                     self.waypointParameterHeadingBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterHeadingBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(self.waypointParameterHeadingBytesForUpload)
+                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterHeadingBytesForUpload)
                     self.signalCircleWaypointParameterUploaded.heading = self.waypointParameterHeadingForUpload
                 if self.uploadingWaypointTypeIndex == 6:
                     self.toPointWaypointParameterUploaded.number = parsePacketBytes[37]
@@ -2587,11 +2808,13 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.toPointWaypointParameterUploaded.altitude = self.waypointParameterAltForUpload
                     self.waypointParameterHeadingBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterHeadingBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(self.waypointParameterHeadingBytesForUpload)
+                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterHeadingBytesForUpload)
                     self.toPointWaypointParameterUploaded.heading = self.waypointParameterHeadingForUpload
                 if self.uploadingWaypointTypeIndex == 7:
                     self.uploadingSubframeByteBundle.putByte("number", parsePacketBytes[37])
@@ -2602,11 +2825,13 @@ class MoniteSocketForReceiveService(Service):
                     self.waypointParameterAltBytesForUpload[2] = parsePacketBytes[40]
                     self.waypointParameterAltBytesForUpload[1] = parsePacketBytes[41]
                     self.waypointParameterAltBytesForUpload[0] = parsePacketBytes[42]
-                    self.waypointParameterAltForUpload = (float(Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
+                    self.waypointParameterAltForUpload = (float(
+                        Tool.byteArrayToInt_ZSY(self.waypointParameterAltBytesForUpload))) / 1000.0
                     self.multiPointWaypointParameterUploaded.altitude = self.waypointParameterAltForUpload
                     self.waypointParameterHeadingBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterHeadingBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(self.waypointParameterHeadingBytesForUpload)
+                    self.waypointParameterHeadingForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterHeadingBytesForUpload)
                     self.multiPointWaypointParameterUploaded.heading = self.waypointParameterHeadingForUpload
                 self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
                 self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(82))
@@ -2620,68 +2845,82 @@ class MoniteSocketForReceiveService(Service):
                 if self.uploadingWaypointTypeIndex == 0:
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.relativePositionFollowWaypointParameterForUpload.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload)
+                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(
+                        self.waypointParametervCircleBytesForUpload)
                     self.relativePositionFollowWaypointParameterForUpload.vCircle = self.waypointParametervCircleForUpload
                 if self.uploadingWaypointTypeIndex == 1:
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.autoFollowWaypointParameterForUpload.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload)
+                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(
+                        self.waypointParametervCircleBytesForUpload)
                     self.autoFollowWaypointParameterForUpload.vCircle = self.waypointParametervCircleForUpload
                 if self.uploadingWaypointTypeIndex == 2:
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload))) / 10.0))))
+                    self.waypointParameterDistanceForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload))) / 10.0))))
                     self.circleFollowWaypointParameterForUpload.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload)
+                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(
+                        self.waypointParametervCircleBytesForUpload)
                     self.circleFollowWaypointParameterForUpload.vCircle = self.waypointParametervCircleForUpload
                 if self.uploadingWaypointTypeIndex == 3:
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.selfieWaypointParameterForUpload.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload)
+                    self.waypointParametervCircleForUpload = Tool.getShortFromBytes(
+                        self.waypointParametervCircleBytesForUpload)
                     self.selfieWaypointParameterForUpload.vCircle = self.waypointParametervCircleForUpload
                 if self.uploadingWaypointTypeIndex == 5:
                     self.signalCircleWaypointParameterUploaded.number = parsePacketBytes[37]
                     self.signalCircleWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.signalCircleWaypointParameterUploaded.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
+                    self.waypointParametervCircleForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
                     self.signalCircleWaypointParameterUploaded.vCircle = self.waypointParametervCircleForUpload
                     self.waypointParameterClimbRateBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterClimbRateBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(self.waypointParameterClimbRateBytesForUpload)
+                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterClimbRateBytesForUpload)
                     self.signalCircleWaypointParameterUploaded.climbRate = self.waypointParameterClimbRateForUpload
                 if self.uploadingWaypointTypeIndex == 6:
                     self.toPointWaypointParameterUploaded.number = parsePacketBytes[37]
                     self.toPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.toPointWaypointParameterUploaded.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
+                    self.waypointParametervCircleForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
                     self.toPointWaypointParameterUploaded.vCircle = self.waypointParametervCircleForUpload
                     self.waypointParameterClimbRateBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterClimbRateBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(self.waypointParameterClimbRateBytesForUpload)
+                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterClimbRateBytesForUpload)
                     self.toPointWaypointParameterUploaded.climbRate = self.waypointParameterClimbRateForUpload
                 if self.uploadingWaypointTypeIndex == 7:
                     self.uploadingSubframeByteBundle.putByte("number", parsePacketBytes[37])
@@ -2690,15 +2929,18 @@ class MoniteSocketForReceiveService(Service):
                     self.multiPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterDistanceBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterDistanceBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(self.waypointParameterDistanceBytesForUpload)
+                    self.waypointParameterDistanceForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDistanceBytesForUpload)
                     self.multiPointWaypointParameterUploaded.distance = self.waypointParameterDistanceForUpload
                     self.waypointParametervCircleBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParametervCircleBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParametervCircleForUpload = int((int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
+                    self.waypointParametervCircleForUpload = int(
+                        (int(((float(Tool.getShortFromBytes(self.waypointParametervCircleBytesForUpload))) / 10.0))))
                     self.multiPointWaypointParameterUploaded.vCircle = self.waypointParametervCircleForUpload
                     self.waypointParameterClimbRateBytesForUpload[0] = parsePacketBytes[43]
                     self.waypointParameterClimbRateBytesForUpload[1] = parsePacketBytes[44]
-                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(self.waypointParameterClimbRateBytesForUpload)
+                    self.waypointParameterClimbRateForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterClimbRateBytesForUpload)
                     self.multiPointWaypointParameterUploaded.climbRate = self.waypointParameterClimbRateForUpload
                 self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
                 self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(83))
@@ -2712,16 +2954,21 @@ class MoniteSocketForReceiveService(Service):
                 if self.uploadingWaypointTypeIndex == 0:
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.relativePositionFollowWaypointParameterForUpload.radius = self.waypointParameterRadiusForUpload
-                    self.cacheForRelativePositionFollow.setLatitude(self.relativePositionFollowWaypointParameterForUpload.latitude)
-                    self.cacheForRelativePositionFollow.setLongitude(self.relativePositionFollowWaypointParameterForUpload.longitude)
-                    self.cacheForRelativePositionFollow.setAltitude(self.relativePositionFollowWaypointParameterForUpload.altitude)
+                    self.cacheForRelativePositionFollow.setLatitude(
+                        self.relativePositionFollowWaypointParameterForUpload.latitude)
+                    self.cacheForRelativePositionFollow.setLongitude(
+                        self.relativePositionFollowWaypointParameterForUpload.longitude)
+                    self.cacheForRelativePositionFollow.setAltitude(
+                        self.relativePositionFollowWaypointParameterForUpload.altitude)
                     self.vlcApplication.setCacheDataForRelativePosition(self.cacheForRelativePositionFollow)
                 if self.uploadingWaypointTypeIndex == 1:
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.autoFollowWaypointParameterForUpload.radius = self.waypointParameterRadiusForUpload
                     self.cacheForAutoFollow.setLatitude(self.autoFollowWaypointParameterForUpload.latitude)
                     self.cacheForAutoFollow.setLongitude(self.autoFollowWaypointParameterForUpload.longitude)
@@ -2730,7 +2977,8 @@ class MoniteSocketForReceiveService(Service):
                 if self.uploadingWaypointTypeIndex == 2:
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.circleFollowWaypointParameterForUpload.radius = self.waypointParameterRadiusForUpload
                     self.cacheForCircleFollow.setAltitude(self.circleFollowWaypointParameterForUpload.altitude)
                     self.cacheForCircleFollow.setVcircle(self.circleFollowWaypointParameterForUpload.vCircle)
@@ -2739,7 +2987,8 @@ class MoniteSocketForReceiveService(Service):
                 if self.uploadingWaypointTypeIndex == 3:
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.selfieWaypointParameterForUpload.radius = self.waypointParameterRadiusForUpload
                     self.cacheForSelfie.setDistance(self.selfieWaypointParameterForUpload.longitude)
                     self.cacheForSelfie.setAltitude(self.selfieWaypointParameterForUpload.altitude)
@@ -2750,11 +2999,13 @@ class MoniteSocketForReceiveService(Service):
                     self.signalCircleWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.signalCircleWaypointParameterUploaded.radius = self.waypointParameterRadiusForUpload
                     self.waypointParameterDurationBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParameterDurationBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(self.waypointParameterDurationBytesForUpload)
+                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDurationBytesForUpload)
                     self.signalCircleWaypointParameterUploaded.duration = self.waypointParameterDurationForUpload
                     self.signalCircleWaypointParameterUploaded.mode = parsePacketBytes[43]
                 if self.uploadingWaypointTypeIndex == 6:
@@ -2762,11 +3013,13 @@ class MoniteSocketForReceiveService(Service):
                     self.toPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.toPointWaypointParameterUploaded.radius = self.waypointParameterRadiusForUpload
                     self.waypointParameterDurationBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParameterDurationBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(self.waypointParameterDurationBytesForUpload)
+                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDurationBytesForUpload)
                     self.toPointWaypointParameterUploaded.duration = self.waypointParameterDurationForUpload
                     self.toPointWaypointParameterUploaded.mode = parsePacketBytes[43]
                 if self.uploadingWaypointTypeIndex == 7:
@@ -2776,14 +3029,17 @@ class MoniteSocketForReceiveService(Service):
                     self.multiPointWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                     self.waypointParameterRadiusBytesForUpload[0] = parsePacketBytes[39]
                     self.waypointParameterRadiusBytesForUpload[1] = parsePacketBytes[40]
-                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(self.waypointParameterRadiusBytesForUpload)
+                    self.waypointParameterRadiusForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterRadiusBytesForUpload)
                     self.multiPointWaypointParameterUploaded.radius = self.waypointParameterRadiusForUpload
                     self.waypointParameterDurationBytesForUpload[0] = parsePacketBytes[41]
                     self.waypointParameterDurationBytesForUpload[1] = parsePacketBytes[42]
-                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(self.waypointParameterDurationBytesForUpload)
+                    self.waypointParameterDurationForUpload = Tool.getShortFromBytes(
+                        self.waypointParameterDurationBytesForUpload)
                     self.multiPointWaypointParameterUploaded.duration = self.waypointParameterDurationForUpload
                     self.multiPointWaypointParameterUploaded.mode = parsePacketBytes[43]
-                    if self.multiPointWaypointParameterUploaded.currentIndex == len(self.multiPointWaypointParameterUploadedList):
+                    if self.multiPointWaypointParameterUploaded.currentIndex == len(
+                            self.multiPointWaypointParameterUploadedList):
                         self.multiPointWaypointParameterUploadedList.add(self.multiPointWaypointParameterUploaded)
                 self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
                 self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(84))
@@ -2809,7 +3065,8 @@ class MoniteSocketForReceiveService(Service):
                 self.trackWaypointParameterUploaded.number = parsePacketBytes[37]
                 self.trackWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
                 self.trackWaypointParameterUploaded.nextIndex = parsePacketBytes[39]
-                self.trackLngForUplad = (float(Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]])))) / 1.0E7
+                self.trackLngForUplad = (float(Tool.byteArrayToInt_ZSY(bytearray(
+                    [parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]])))) / 1.0E7
                 self.trackWaypointParameterUploaded.longitude = self.trackLngForUplad
             self.uploadingSubframeByteBundle.putInt("uploadingwaypointtype", self.uploadingWaypointTypeIndex)
             self.uploadingSubframeByteBundle.putByte("uploadingsubframe", int(90))
@@ -2826,9 +3083,11 @@ class MoniteSocketForReceiveService(Service):
                 self.uploadingSubframeByteBundle.putByte("currentindex", parsePacketBytes[38])
                 self.trackWaypointParameterUploaded.number = parsePacketBytes[37]
                 self.trackWaypointParameterUploaded.currentIndex = parsePacketBytes[38]
-                self.trackAltForUpload = int((int(((float(Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]])))) / 10.0))))
+                self.trackAltForUpload = int((int(
+                    ((float(Tool.getShortFromBytes(bytearray([parsePacketBytes[39], parsePacketBytes[40]])))) / 10.0))))
                 self.trackWaypointParameterUploaded.altitude = self.trackAltForUpload
-                self.trackLatForUpload = (float(Tool.byteArrayToInt_ZSY(bytearray([parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]])))) / 1.0E7
+                self.trackLatForUpload = (float(Tool.byteArrayToInt_ZSY(bytearray(
+                    [parsePacketBytes[41], parsePacketBytes[42], parsePacketBytes[43], parsePacketBytes[44]])))) / 1.0E7
                 self.trackWaypointParameterUploaded.latitude = self.trackLatForUpload
                 if self.trackWaypointParameterUploaded.currentIndex == len(self.trackWaypointParameterUploadedList):
                     self.trackWaypointParameterUploadedList.add(self.trackWaypointParameterUploaded)
@@ -2837,7 +3096,9 @@ class MoniteSocketForReceiveService(Service):
             self.uploadingSubframeByteIntent.putExtras(self.uploadingSubframeByteBundle)
             self.uploadingSubframeByteIntent.setAction(Tool.UPLOADINGSUBFRAMEBYTE_ACTION)
             sendBroadcast(self.uploadingSubframeByteIntent)
-        if parsePacketBytes[36] == int(-48) or parsePacketBytes[36] == int(-47) or parsePacketBytes[36] == int(-46) or parsePacketBytes[36] == int(-45) or parsePacketBytes[36] == int(-44) or parsePacketBytes[36] == int(-38) or parsePacketBytes[36] == int(-37):
+        if parsePacketBytes[36] == int(-48) or parsePacketBytes[36] == int(-47) or parsePacketBytes[36] == int(-46) or \
+                parsePacketBytes[36] == int(-45) or parsePacketBytes[36] == int(-44) or parsePacketBytes[36] == int(
+                -38) or parsePacketBytes[36] == int(-37):
             self.vlcApplication.setSubframeFlag(0)
             self.vlcApplication.setReceivedSubframeByte(parsePacketBytes[36])
         self.dataForShowIntent.putExtras(self.dataForShowBundle)
@@ -2882,17 +3143,117 @@ class MoniteSocketForReceiveService(Service):
         self.closeBluetoothGatt()
         stopSelf()
 
+
 service = MoniteSocketForReceiveService()
 service.onBind(Intent())
+
+
 def parser(x):
     del pending_broadcasts[:]
     service.parsePacketData(bytearray(x))
     x = dict(service.__dict__)
-    for y in x.keys():
+    for y in list(x):
         if y.endswith('Receiver') or y in ('countThreadScheduledPool', 'vlcApplication', 'countPacketsThread'):
             del x[y]
     x['broadcasts'] = list(pending_broadcasts)
     del pending_broadcasts[:]
     return x
+
+
 if __name__ == '__main__':
-    print parser('\x00' * 47)
+    pprint.pprint(parser('''b1
+a1
+00
+80
+41
+00
+00
+00
+00
+00
+00
+00
+00
+00
+71
+c7
+fe
+ff
+00
+00
+00
+00
+08
+00
+64
+01
+00
+00
+03
+00
+cf
+ff
+ea
+0d
+13
+0e
+cd
+00
+00
+00
+00
+00
+00
+00
+00
+31
+5d
+'''.replace('\n', '').decode('hex')))
+    pprint.pprint(parser('''b1
+a1
+00
+80
+41
+00
+00
+00
+00
+00
+00
+00
+00
+00
+71
+c7
+fe
+ff
+00
+00
+00
+00
+08
+00
+64
+01
+00
+00
+03
+00
+cf
+ff
+ea
+0d
+13
+0e
+cd
+00
+00
+00
+00
+00
+00
+00
+00
+31
+5d
+'''.replace('\n', '').decode('hex')))
