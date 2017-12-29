@@ -1,0 +1,8 @@
+pwntools
+flask
+flask_sse
+gevent
+werkzeug
+hexdump
+gatt
+https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.4.tar.gz

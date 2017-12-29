@@ -41,7 +41,7 @@ def parse(packet, is_rx=False):
     if is_rx:
         return
     packet = bytearray(packet)
-    if packet[4] in (0x20, 0x41):
+    if packet[4] in (0x20, 0x41) or packet[4]:
         print('%02x' % packet[4])
         print(packet.hex())
         print(' '.join(str(x) for x in packet))
@@ -63,8 +63,7 @@ def parse(packet, is_rx=False):
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        print
-        'Usage: parser.py [packet json file]'
+        print('Usage: parser.py [packet json file]')
         exit()
     f = json.load(open(sys.argv[1], 'r'))
     for data in f:

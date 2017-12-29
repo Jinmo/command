@@ -1,52 +1,174 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TAROT BD Commander</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.css">
-	<script src="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.js"></script>
-	<style>
-		body {
-			margin: 0;
-		}
-		.button.takeoff {
-			position: absolute;
-			top: 10px;
-			left: 10px;
-		}
-		#map {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-	</style>
+    <title>TAROT BD Commander</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/latest/semantic.min.js"></script>
+    <style>
+        .status.takeoff {
+            position: absolute;
+            bottom: 50px;
+            left: 10px;
+        }
+
+        .status {
+            z-index: 100;
+        }
+
+        .view {
+            font-size: 1.71428571rem;
+            background: rgba(0, 0, 0, 1);
+            border-radius: 100px;
+            min-height: 1em;
+            padding: .78571429em 1.5em;
+            line-height: 1em;
+            vertical-align: baseline;
+            display: block;
+            color: #fff;
+        }
+
+        .gps {
+            position: absolute;
+            top: 10px;
+            right: 50px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .left.view {
+            float: left;
+        }
+
+        .popup {
+            z-index: 100;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            font-weight: bolder;
+            color: #fff;
+            background: #22ba50;
+            display: none;
+            line-height: 30px;
+            padding-left: 1em;
+        }
+    </style>
 </head>
 <body>
-<div class="ui massive button green takeoff">
-	Takeoff
+<div class="status gps view">
+    GPS:
+    <span id="gps_status">N/A</span> |
+    <span id="gps_lat">0.00</span>,
+    <span id="gps_lng">0.00</span>
 </div>
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
+<div class="status takeoff">
+    <div class="ui massive left floated button green" onclick="send_takeoff();">
+        Takeoff
+    </div>
+    <div class="ui massive left floated button green" onclick="send_land();">
+        Land
+    </div>
+    <div class="left view">Vertical speed:
+        <span id="vertical_speed"></span> |
+        <span id="motor_state"></span>
+    </div>
+</div>
+<div id="map"></div>
+<script>
+    var map, marker;
+
+    function initMap() {
+        var curPosition = {lat: 0, lng: 0};
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: curPosition
         });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
+        marker = new google.maps.Marker({position: curPosition, map: map});
+    }
+
+    function send_takeoff() {
+        $.get('/api/takeoff');
+    }
+
+    function send_land() {
+        $.get('/api/land');
+    }
+
+    function send_topoint() {
+        var lat, lng, velocity;
+        lat = prompt();
+        lng = prompt();
+        velocity = prompt();
+        $.get('/api/follow', {
+            lat: lat,
+            lng: lng,
+            velocity: velocity
         });
-      }
-	var source = new EventSource("{{ url_for('sse.stream') }}");
-	source.addEventListener('greeting', function(event) {
-	    var data = JSON.parse(event.data);
-	    // do what you want with this data
-	}, false);
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDazdMezdtZnXwcMsC04xFuz65s7241r84&callback=initMap">
-    </script>
+    }
+
+    var source = new EventSource("{{ url_for('sse.stream') }}");
+    var handlers = {};
+    source.addEventListener('message', function (event) {
+        var data = JSON.parse(event.data);
+        // do what you want with this data
+        data.action = data.action.substr('android.action.'.length);
+        var handler = handlers[data.action];
+        if (handler) {
+            handler(data.extras);
+        } else console.log(data);
+    }, false);
+
+    var cur_popups = 0;
+
+    function show_popup(text) {
+        var $popup = $('<div>');
+        $popup.addClass('popup');
+        $(document.body).append($popup);
+        $popup.text(text).css('bottom', cur_popups++ * 30 + 'px').slideDown();
+        setTimeout(function () {
+            $popup.slideUp();
+            cur_popups--;
+        }, 2000)
+    }
+
+    handlers.resultformotorrun = handlers.resultforland = function (extras) {
+        if (extras.resultformotorrun || extras.resultforland) {
+            console.log('Takeoff/Landing success');
+            show_popup('Takeoff/Landing success (result sent from device)');
+        }
+    }
+    handlers.satelliteamountandavailable = function (extras) {
+        gps_status.innerText = extras.satelliteamount;
+    }
+    handlers.planelatlng = function (extras) {
+        var curPosition = new google.maps.LatLng(extras.uavlat,
+            extras.uavlng);
+        if (!handlers.planelatlng.notfirst) {
+            map.setZoom(11);
+            handlers.planelatlng.notfirst = true;
+        }
+        map.setCenter(curPosition);
+        gps_lat.innerText = extras.uavlat.toFixed(7);
+        gps_lng.innerText = extras.uavlng.toFixed(7);
+        marker.setPosition(curPosition);
+    }
+    handlers.dataforshow = function (extras) {
+        vertical_speed.innerText = extras.uavverticalspeed;
+    }
+    handlers.motorstate = function(extras) {
+        motor_state.innerText = extras.motorstate ? 'Takeoff' : 'Landed';
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDazdMezdtZnXwcMsC04xFuz65s7241r84&callback=initMap">
+</script>
 </body>
 </html>

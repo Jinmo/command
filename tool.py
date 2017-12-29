@@ -1083,7 +1083,7 @@ class Tool(object):
     @classmethod
     def getBytesFromShort(cls, azimuthShort):
         """ generated source for method getBytesFromShort """
-        return [(byte) (azimuthShort >> 8), (byte) (azimuthShort >> 0)]
+        return [0xff&(azimuthShort >> 8), 0xff&(azimuthShort >> 0)]
 
     @classmethod
     def getFloat(cls, bytes):
@@ -1177,12 +1177,15 @@ class Tool(object):
     @classmethod
     def byteArrayToInt_ZSY(cls, b):
         """ generated source for method byteArrayToInt_ZSY """
+        import struct
+        return (struct.unpack("<L", bytearray([b[i]&255 for i in range(4)]))[0])
+        print((((b[3] & 255) | ((b[2] & 255) << 8)) | ((b[1] & 255) << 16)) | ((b[0] & 255) << 24))
         return (((b[3] & 255) | ((b[2] & 255) << 8)) | ((b[1] & 255) << 16)) | ((b[0] & 255) << 24)
 
     @classmethod
     def intToByteArray_ZSY(cls, a):
         """ generated source for method intToByteArray_ZSY """
-        return [(byte) ((a >> 24) & 255), (byte) ((a >> 16) & 255), (byte) ((a >> 8) & 255), (byte) (a & 255)]
+        return [((a >> 24) & 255), ((a >> 16) & 255), ((a >> 8) & 255), (a & 255)]
 
     @classmethod
     def concatAll(cls, first, *rest):
