@@ -1,6 +1,7 @@
 import atexit
 import math
 import time
+import base64
 
 from threading import Thread, Event
 from flask import Flask, render_template, request
@@ -192,7 +193,7 @@ def follow():
 def destroy():
     global mission_time
     # It's really dangerous!! It needs password!
-    if request.args['secret_password'].decode('base64') == 'mys3cr3t____p4ss__wo0rd':
+    if base64.b64decode(request.args['secret_password']) == b'mys3cr3t____p4ss__wo0rd':
         mission_time = time.time()
         return 'OK'
     else:
