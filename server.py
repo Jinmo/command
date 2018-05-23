@@ -134,7 +134,7 @@ def land():
 
 @app.route('/api/follow')
 def follow():
-    global destLat, destLng, velocity
+    global destLat, destLng, curVelocity
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     velocity = request.args.get('velocity')
