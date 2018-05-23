@@ -194,29 +194,30 @@ def stop_threads():
 
 def followThread():
     global curLat, curLng, destLat, destLng, curVelocity
-    while True:
-        # First, get angle between cur <-> destination
-        distanceLat, distanceLng = (destLat - curLat), (destLng - curLng)
-        angle = math.atan2(distanceLng, distanceLat)
-        # Then, calculate how far to move
-        goLat, goLng = curVelocity * math.cos(angle), curVelocity * math.sin(angle)
-        if distanceLat == 0:
-            goLat = 0.0
-        if distanceLng == 0:
-            goLng = 0.0
-        curLat, curLng = goLat + curLat, goLng + curLng
-        newDistanceLat, newDistanceLng = (destLat - curLat), (destLng - curLng)
-        # Adjust it after move
-        if distanceLat * newDistanceLat < 0: # already arrived
-            curLat = destLat
-        if distanceLng * newDistanceLng < 0: # too
-            curLng = destLng
-        print(curLat, curLng, goLat, goLng, distanceLat, distanceLng)
-        sse.publish({
-            'action': 'android.action.planelatlng',
-            'extras': {'uavlat': curLat, 'uavlng': curLng}
-        })
-        time.sleep(0.5)
+    with app.app_context():
+        while True:
+            # First, get angle between cur <-> destination
+            distanceLat, distanceLng = (destLat - curLat), (destLng - curLng)
+            angle = math.atan2(distanceLng, distanceLat)
+            # Then, calculate how far to move
+            goLat, goLng = curVelocity * math.cos(angle), curVelocity * math.sin(angle)
+            if distanceLat == 0:
+                goLat = 0.0
+            if distanceLng == 0:
+                goLng = 0.0
+            curLat, curLng = goLat + curLat, goLng + curLng
+            newDistanceLat, newDistanceLng = (destLat - curLat), (destLng - curLng)
+            # Adjust it after move
+            if distanceLat * newDistanceLat < 0: # already arrived
+                curLat = destLat
+            if distanceLng * newDistanceLng < 0: # too
+                curLng = destLng
+            print(curLat, curLng, goLat, goLng, distanceLat, distanceLng)
+            sse.publish({
+                'action': 'android.action.planelatlng',
+                'extras': {'uavlat': curLat, 'uavlng': curLng}
+            })
+            time.sleep(0.5)
 
 
 if __name__ == '__main__':
