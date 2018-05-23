@@ -187,10 +187,10 @@ var icon = {
             extras.motorstate ? 'Takeoff' : 'Landed')
         : secretmissionstatus;
         if(secretmissionstatus !== 'good')
-        icon = '/static/explosion.png';
+            icon.url = '/static/explosion.png';
         else
-        icon = '/static/marker.svg';
-            marker.setIcon(icon);
+            icon.url = '/static/marker.svg';
+        marker.setIcon(icon);
     }
     handlers.secretmissionstatus = function(extras) {
         secretmissionstatus = extras.status;
