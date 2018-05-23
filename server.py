@@ -1,7 +1,11 @@
-from threading import Thread, Event
 import atexit
+import math
+import time
+
+from threading import Thread, Event
 from flask import Flask, render_template, request
 from flask_sse import sse
+
 from tool import Tool
 
 import details
@@ -23,6 +27,17 @@ prev_packet = bytes.fromhex(
 )
 
 
+# GPS doesn't work inside, so...
+overwrittenLat = 37.5845751
+overwrittenLng = 127.0265592
+
+# Current, and destination lat, lng
+curLat = destLat = overwrittenLat
+curLng = destLng = overwrittenLng
+
+# Speed
+curVelocity = float(0.2)
+
 def on_receive(attribute, packet):
     global first, second, prev_packet
     if len(packet) == 20:
@@ -38,6 +53,10 @@ def on_receive(attribute, packet):
         with app.app_context():
             for msg in broadcasts:
                 print(msg.action, msg.extras)
+                if msg.action == 'planelatlng' and msg.extras:
+                    data = msg.extras.data
+                    data['uavlat'] = overwrittenLat
+                    data['uavlng'] = overwrittenLng
                 sse.publish({
                     'action': msg.action,
                     'extras': msg.extras.data if msg.extras else {}
@@ -115,6 +134,7 @@ def land():
 
 @app.route('/api/follow')
 def follow():
+    global curLat, curLng, velocity
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     velocity = request.args.get('velocity')
@@ -153,6 +173,8 @@ def follow():
     sendPacket[43] = waypointParameterLatBytes[1]
     sendPacket[44] = waypointParameterLatBytes[0]
 
+    curLat, curLng, curVelocity = lat, lng, velocity
+
     ble.write_data(p.dump())
 
     ble.write_data(Packet(command=0x48).dump())
@@ -168,7 +190,34 @@ def stop_threads():
         t.cancel()
 
 
+
+def followThread():
+    global curLat, curLng, destLat, destLng, curVelocity
+    while True:
+        # First, get angle between cur <-> destination
+        distanceLat, distanceLng = (destLat - curLat), (destLng - curLng)
+        angle = math.atan2(distanceLng, distanceLat)
+        # Then, calculate how far to move
+        goLat, goLng = curVelocity * math.cos(angle), curVelocity * math.sin(angle)
+        if distanceLat == 0:
+            goLat = 0.0
+        if distanceLng == 0:
+            goLng = 0.0
+        curLat, curLng = goLat + curLat, goLng + curLng
+        newDistanceLat, newDistanceLng = (destLat - curLat), (destLng - curLng)
+        # Adjust it after move
+        if distanceLat * newDistanceLat < 0: # already arrived
+            curLat = destLat
+        if distanceLng * newDistanceLng < 0: # too
+            curLng = destLng
+        time.sleep(0.5)
+
+
 if __name__ == '__main__':
     atexit.register(stop_threads)
+    # followThread works in background
+    t = Thread(target=followThread)
+    threads.append(t)
+    # let's run the web server
     app.jinja_env.auto_reload = True
     app.run(port=5000, threaded=True)
