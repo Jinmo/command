@@ -61,8 +61,9 @@ def on_receive(attribute, packet):
                 print(msg.action, msg.extras)
                 if msg.action == 'android.action.planelatlng' and msg.extras:
                     data = msg.extras.data
-                    data['uavlat'] = curLat
-                    data['uavlng'] = curLng
+                    if not data.get('uavlat') or not data.get('uavlng'):
+                        data['uavlat'] = curLat
+                        data['uavlng'] = curLng
                 sse.publish({
                     'action': msg.action,
                     'extras': msg.extras.data if msg.extras else {}
