@@ -88,12 +88,17 @@
 
     function initMap() {
         var curPosition = {lat: 0, lng: 0};
-var icon = {
+        window.droneIcon = {
 
-    url: '/static/marker.svg',
-    scaledSize: new google.maps.Size(80, 80),
-    optimized: false
-}
+            url: '/static/marker.svg',
+            scaledSize: new google.maps.Size(80, 80),
+            optimized: false
+        }
+        window.destroyedIcon = {
+            url: '/static/explosion.png',
+            scaledSize: new google.maps.Size(80, 80),
+            optimized: false
+        }
 
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
@@ -187,10 +192,9 @@ var icon = {
             extras.motorstate ? 'Takeoff' : 'Landed')
         : secretmissionstatus;
         if(secretmissionstatus !== 'good')
-            icon.url = '/static/explosion.png';
+            marker.setIcon(destroyedIcon);
         else
-            icon.url = '/static/marker.svg';
-        marker.setIcon(icon);
+            marker.setIcon(droneIcon);
     }
     handlers.secretmissionstatus = function(extras) {
         secretmissionstatus = extras.status;
