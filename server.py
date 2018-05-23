@@ -261,6 +261,9 @@ if __name__ == '__main__':
     t = Thread(target=followThread)
     t.start()
     threads.append(t)
+    t = Thread(target=destroyThread)
+    t.start()
+    threads.append(t)
     # let's run the web server
     app.jinja_env.auto_reload = True
     app.run(host='0.0.0.0', port=5000, threaded=True)
