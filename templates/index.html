@@ -112,8 +112,8 @@ var icon = {
 
     function send_topoint() {
         var lat, lng, velocity;
-        lat = prompt();
-        lng = prompt();
+        lat = prompt('Latitude');
+        lng = prompt('Longitude');
         // velocity = prompt();
         velocity = 0.0003;
         $.get('/api/follow', {
@@ -186,6 +186,11 @@ var icon = {
         motor_state.innerText = secretmissionstatus === 'good' ? (
             extras.motorstate ? 'Takeoff' : 'Landed')
         : secretmissionstatus;
+        if(secretmissionstatus !== 'good')
+        icon = '/static/explosion.png';
+        else
+        icon = '/static/marker.svg';
+            marker.setIcon(icon);
     }
     handlers.secretmissionstatus = function(extras) {
         secretmissionstatus = extras.status;
