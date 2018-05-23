@@ -178,6 +178,7 @@ def follow():
     ble.write_data(p.dump())
 
     ble.write_data(Packet(command=0x48).dump())
+    takeoff()
     return 'OK'
 
 
