@@ -210,6 +210,11 @@ def followThread():
             curLat = destLat
         if distanceLng * newDistanceLng < 0: # too
             curLng = destLng
+        print(curLat, curLng, goLat, goLng, distanceLat, distanceLng)
+        sse.publish({
+            'action': 'android.action.planelatlng',
+            'extras': {'uavlat': curLat, 'uavlng': curLng}
+        })
         time.sleep(0.5)
 
 
