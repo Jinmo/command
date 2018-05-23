@@ -88,11 +88,18 @@
 
     function initMap() {
         var curPosition = {lat: 0, lng: 0};
+var icon = {
+
+    url: '../marker.svg',
+    scaledSize: new google.maps.Size(80, 80),
+    optimized: false
+}
+
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
+            zoom: 15,
             center: curPosition
         });
-        marker = new google.maps.Marker({position: curPosition, map: map});
+        marker = new google.maps.Marker({position: curPosition, map: map, draggable: false, icon: icon});
     }
 
     function send_takeoff() {
@@ -107,12 +114,20 @@
         var lat, lng, velocity;
         lat = prompt();
         lng = prompt();
-        velocity = prompt();
+        // velocity = prompt();
+        velocity = 0.0003;
         $.get('/api/follow', {
             lat: lat,
             lng: lng,
             velocity: velocity
         });
+    }
+
+    function send_destroy() {
+        if(prompt() === 'mys3cr3t____p4ss__wo0rd')
+            $.get('/api/destroy', {
+                secret_password: password
+            })
     }
 
     var source = new EventSource("{{ url_for('sse.stream') }}");
@@ -153,7 +168,7 @@
         var curPosition = new google.maps.LatLng(extras.uavlat,
             extras.uavlng);
         if (!handlers.planelatlng.notfirst) {
-            map.setZoom(11);
+            map.setZoom(15);
             handlers.planelatlng.notfirst = true;
         }
         map.setCenter(curPosition);
@@ -168,6 +183,7 @@
         motor_state.innerText = extras.motorstate ? 'Takeoff' : 'Landed';
     }
 </script>
+<text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Icon Created by Patrick McDonnell</text><text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDazdMezdtZnXwcMsC04xFuz65s7241r84&callback=initMap">
 </script>
