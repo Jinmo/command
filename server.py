@@ -134,7 +134,7 @@ def land():
 
 @app.route('/api/follow')
 def follow():
-    global curLat, curLng, velocity
+    global destLat, destLng, velocity
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     velocity = request.args.get('velocity')
@@ -173,7 +173,7 @@ def follow():
     sendPacket[43] = waypointParameterLatBytes[1]
     sendPacket[44] = waypointParameterLatBytes[0]
 
-    curLat, curLng, curVelocity = lat, lng, velocity
+    destLat, destLng, curVelocity = lat, lng, velocity
 
     ble.write_data(p.dump())
 
