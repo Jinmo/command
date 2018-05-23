@@ -129,7 +129,8 @@
     }
 
     function send_destroy() {
-        if(atob(prompt()) === 'mys3cr3t____p4ss__wo0rd')
+        var password = prompt();
+        if(atob(password) === 'mys3cr3t____p4ss__wo0rd')
             $.get('/api/destroy', {
                 secret_password: password
             })
