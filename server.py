@@ -220,4 +220,4 @@ if __name__ == '__main__':
     threads.append(t)
     # let's run the web server
     app.jinja_env.auto_reload = True
-    app.run(port=5000, threaded=True)
+    app.run(host='0.0.0.0', port=5000, threaded=True)
