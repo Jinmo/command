@@ -124,10 +124,12 @@ var icon = {
     }
 
     function send_destroy() {
-        if(prompt() === 'mys3cr3t____p4ss__wo0rd')
+        if(atob(prompt()) === 'mys3cr3t____p4ss__wo0rd')
             $.get('/api/destroy', {
                 secret_password: password
             })
+        else
+            alert('Wrong! Access Denied!');
     }
 
     var source = new EventSource("{{ url_for('sse.stream') }}");
@@ -179,8 +181,15 @@ var icon = {
     handlers.dataforshow = function (extras) {
         vertical_speed.innerText = extras.uavverticalspeed;
     }
+    var secretmissionstatus = 'good';
     handlers.motorstate = function(extras) {
-        motor_state.innerText = extras.motorstate ? 'Takeoff' : 'Landed';
+        motor_state.innerText = secretmissionstatus === 'good' ? (
+            extras.motorstate ? 'Takeoff' : 'Landed')
+        : secretmissionstatus;
+    }
+    handlers.secretmissionstatus = function(extras) {
+        secretmissionstatus = extras.status;
+        handlers.motorstate({}); // Update
     }
 </script>
 <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Icon Created by Patrick McDonnell</text><text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text>

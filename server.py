@@ -27,6 +27,10 @@ prev_packet = bytes.fromhex(
 )
 
 
+# for secret mission. shh..
+mission_time = 0
+
+
 # GPS doesn't work inside, so...
 overwrittenLat = 37.5845751
 overwrittenLng = 127.0265592
@@ -36,7 +40,8 @@ curLat = destLat = overwrittenLat
 curLng = destLng = overwrittenLng
 
 # Speed
-curVelocity = float(0.2)
+curVelocity = float(0.0003)
+
 
 def on_receive(attribute, packet):
     global first, second, prev_packet
@@ -134,52 +139,64 @@ def land():
 
 @app.route('/api/follow')
 def follow():
-    global destLat, destLng, curVelocity
+    global destLat, destLng
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     velocity = request.args.get('velocity')
     if lat is None or lng is None:
-        return 'lat or lng or velocity not provided. usage: /api/follow?lat=<latitude>&lng=<longitude>&velocity=<velocity>'
+        return 'lat or lng or velocity not provided.'
     lat = float(lat)
     lng = float(lng)
     velocity = float(velocity)
 
-    p = Packet(command=75)
-    sendPacket = p.buffer
-    sendPacket[36] = 80
-    sendPacket[37] = p.toPointWaypointParameter_number = 1
-    sendPacket[38] = p.toPointWaypointParameter_currentIndex = 0
-    sendPacket[39] = p.toPointWaypointParameter_nextIndex = 0
-    sendPacket[40] = p.toPointWaypointParameter_property = 0
-    longitudeInt = int(lng * 1.0E7)
-    waypointParameterLngBytes = Tool.intToByteArray_ZSY(longitudeInt)
-    sendPacket[41] = waypointParameterLngBytes[3]
-    sendPacket[42] = waypointParameterLngBytes[2]
-    sendPacket[43] = waypointParameterLngBytes[1]
-    sendPacket[44] = waypointParameterLngBytes[0]
-    ble.write_data(p.dump())
-
-
-    sendPacket[36] = 81
-    sendPacket[37] = p.toPointWaypointParameter_number = 1
-    sendPacket[38] = p.toPointWaypointParameter_currentIndex = 0
-    waypointParameterVelocityBytes = Tool.getBytesFromShort(0xffff & int(velocity * 10))
-    sendPacket[39] = waypointParameterVelocityBytes[0]
-    sendPacket[40] = waypointParameterVelocityBytes[1]
-    latitudeInt = int(lat * 1.0E7)
-    waypointParameterLatBytes = Tool.intToByteArray_ZSY(latitudeInt)
-    sendPacket[41] = waypointParameterLatBytes[3]
-    sendPacket[42] = waypointParameterLatBytes[2]
-    sendPacket[43] = waypointParameterLatBytes[1]
-    sendPacket[44] = waypointParameterLatBytes[0]
-
     destLat, destLng, curVelocity = lat, lng, velocity
     takeoff()
 
-    ble.write_data(p.dump())
+    if False:  # Real packet for drone, but not used for now
+        p = Packet(command=75)
+        sendPacket = p.buffer
+        sendPacket[36] = 80
+        sendPacket[37] = p.toPointWaypointParameter_number = 1
+        sendPacket[38] = p.toPointWaypointParameter_currentIndex = 0
+        sendPacket[39] = p.toPointWaypointParameter_nextIndex = 0
+        sendPacket[40] = p.toPointWaypointParameter_property = 0
+        longitudeInt = int(lng * 1.0E7)
+        waypointParameterLngBytes = Tool.intToByteArray_ZSY(longitudeInt)
+        sendPacket[41] = waypointParameterLngBytes[3]
+        sendPacket[42] = waypointParameterLngBytes[2]
+        sendPacket[43] = waypointParameterLngBytes[1]
+        sendPacket[44] = waypointParameterLngBytes[0]
+        ble.write_data(p.dump())
 
-    ble.write_data(Packet(command=0x48).dump())
+        sendPacket[36] = 81
+        sendPacket[37] = p.toPointWaypointParameter_number = 1
+        sendPacket[38] = p.toPointWaypointParameter_currentIndex = 0
+        waypointParameterVelocityBytes = Tool.getBytesFromShort(
+            0xffff & int(velocity * 10))
+        sendPacket[39] = waypointParameterVelocityBytes[0]
+        sendPacket[40] = waypointParameterVelocityBytes[1]
+        latitudeInt = int(lat * 1.0E7)
+        waypointParameterLatBytes = Tool.intToByteArray_ZSY(latitudeInt)
+        sendPacket[41] = waypointParameterLatBytes[3]
+        sendPacket[42] = waypointParameterLatBytes[2]
+        sendPacket[43] = waypointParameterLatBytes[1]
+        sendPacket[44] = waypointParameterLatBytes[0]
+
+        ble.write_data(p.dump())
+
+        ble.write_data(Packet(command=0x48).dump())
     return 'OK'
+
+
+@app.route('/api/destroy')
+def destroy():
+    global mission_time
+    # It's really dangerous!! It needs password!
+    if request.args['secret_password'].decode('base64') == 'mys3cr3t____p4ss__wo0rd':
+        mission_time = time.time()
+        return 'OK'
+    else:
+        return 'WRONG!!!'
 
 
 def stop_threads():
@@ -191,7 +208,6 @@ def stop_threads():
         t.cancel()
 
 
-
 def followThread():
     global curLat, curLng, destLat, destLng, curVelocity
     with app.app_context():
@@ -200,17 +216,19 @@ def followThread():
             distanceLat, distanceLng = (destLat - curLat), (destLng - curLng)
             angle = math.atan2(distanceLng, distanceLat)
             # Then, calculate how far to move
-            goLat, goLng = curVelocity * math.cos(angle), curVelocity * math.sin(angle)
+            goLat, goLng = curVelocity * \
+                math.cos(angle), curVelocity * math.sin(angle)
             if distanceLat == 0:
                 goLat = 0.0
             if distanceLng == 0:
                 goLng = 0.0
             curLat, curLng = goLat + curLat, goLng + curLng
-            newDistanceLat, newDistanceLng = (destLat - curLat), (destLng - curLng)
+            newDistanceLat, newDistanceLng = (
+                destLat - curLat), (destLng - curLng)
             # Adjust it after move
-            if distanceLat * newDistanceLat < 0: # already arrived
+            if distanceLat * newDistanceLat < 0:  # already arrived
                 curLat = destLat
-            if distanceLng * newDistanceLng < 0: # too
+            if distanceLng * newDistanceLng < 0:  # too
                 curLng = destLng
             print(curLat, curLng, goLat, goLng, distanceLat, distanceLng)
             sse.publish({
@@ -218,6 +236,22 @@ def followThread():
                 'extras': {'uavlat': curLat, 'uavlng': curLng}
             })
             time.sleep(0.5)
+
+
+def destroyThread():
+    global status
+    with app.app_context():
+        while True:
+            if time.time() - mission_time < 8:
+                status = 'destroyed'
+            else:
+                status = 'good'
+            sse.publish({
+                'action': 'android.action.secretmissionstatus',
+                'extras': {
+                    'status': status
+                }
+            })
 
 
 if __name__ == '__main__':
