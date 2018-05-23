@@ -174,11 +174,11 @@ def follow():
     sendPacket[44] = waypointParameterLatBytes[0]
 
     destLat, destLng, curVelocity = lat, lng, velocity
+    takeoff()
 
     ble.write_data(p.dump())
 
     ble.write_data(Packet(command=0x48).dump())
-    takeoff()
     return 'OK'
 
 
