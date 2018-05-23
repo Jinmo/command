@@ -223,6 +223,7 @@ if __name__ == '__main__':
     atexit.register(stop_threads)
     # followThread works in background
     t = Thread(target=followThread)
+    t.start()
     threads.append(t)
     # let's run the web server
     app.jinja_env.auto_reload = True
